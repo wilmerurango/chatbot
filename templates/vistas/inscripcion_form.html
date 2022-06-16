@@ -1,0 +1,43 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+    <form method="post">
+        <h2>Crear Inscripción</h2>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Usuario</label>
+                    {{form.user}}
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Curso</label>
+                    {{form.curso}}
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Estado</label>
+                    {{form.estado}}
+                </div>
+                
+
+            </div>
+
+            <div class="col-lg-6">
+
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-success">Crear</button>
+    </form>
+
+</div>
+
+
+
+{% endblock content %}

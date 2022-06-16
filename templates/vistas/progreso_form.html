@@ -1,0 +1,49 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+    <form method="post">
+        <h2>Crear Progreso</h2>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Inscripcion</label>
+                    {{form.inscripcion}}
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">CurTemStem</label>
+                    {{form.curTemStem}}
+                </div>
+                
+
+            </div>
+
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Estado</label>
+                    {{form.estado}}
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Nota</label>
+                    {{form.nota}}
+                </div>
+
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-success">Crear</button>
+    </form>
+
+</div>
+
+<script>
+    const picker = new tempusdominus.TempusDominus(document.getElementById('id_fecha_i'));
+</script>
+
+{% endblock content %}

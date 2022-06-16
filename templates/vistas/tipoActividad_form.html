@@ -1,0 +1,36 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+
+<div class="m-3 p-3 ">
+    <form method="post">
+        <h2>Crear Tipo Actividad</h2>
+        {% csrf_token %}
+        <div class="row ">
+            <div class="col-lg-6 card border rounded m-3 p-3 shadow-sm bg-light">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Nombre Tipo de Actividad</label>
+                    {{form.nombre_tipo_actividad}}
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Fecha Creación</label>
+                    {{form.fecha_creacion}}
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Estado</label>
+                    {{form.estado}}
+                </div>
+
+            </div>
+
+            
+
+        </div>
+
+        <button type="submit" class="btn btn-success">Crear</button>
+    </form>
+
+</div>
+
+
+{% endblock content %}

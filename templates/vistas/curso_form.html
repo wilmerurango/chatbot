@@ -1,0 +1,98 @@
+
+{% extends 'base/index.html' %}
+{% load static %}
+{% block content %}
+<!-- 
+<link href="{% static 'admin/css/bootstrap-datetimepicker.min.css' %}" rel="stylesheet">
+<script src="{% static 'admin/js/bootstrap-datetimepicker.min.js' %}"></script> -->
+
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+    <form method="post">
+        <h2>Crear Curso</h2>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Nombre de Curso</label>
+                    {{form.nombre_curso}}
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Fecha Inicial</label>
+                    {{form.fecha_inicial}}
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Fecha Final</label>
+                    {{form.fecha_final}}
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Estado del Curso</label>
+                    {{form.estado}}
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Descripción del Curso</label>
+                    {{form.descripcion}}
+                </div>
+
+            </div>
+
+        </div>
+        
+
+        <button type="submit" class="btn btn-success">Crear</button>
+    </form>
+
+</div>
+
+
+<!-- tabla -->
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Cursos Creados
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Id Curso</th>
+                        <th>Nombre Curso</th>
+                        <th>Fecha Inicial</th>
+                        <th>Fecha Terminación</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% if cursos %}
+                        {% for curso in cursos %}
+                            <tr>
+                                <th>{{ curso.id}}</th>
+                                <th>{{ curso.nombre_curso}}</th>
+                                <th>{{ curso.fecha_inicial}}</th>
+                                <th>{{ curso.fecha_final}}</th>
+                                <th>{{ curso.descripcion}}</th>
+                                <th>{{ curso.estado}}</th>
+                                <th></th>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+
+{% endblock content %}

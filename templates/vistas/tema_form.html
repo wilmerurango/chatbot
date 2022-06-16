@@ -1,0 +1,79 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+    <form method="post">
+        <h2>Crear Tema</h2>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Nombre del Tema</label>
+                    {{form.nombre_tema}}
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Estado del Tema</label>
+                    {{form.estado}}
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Descripción del Tema</label>
+                    {{form.descripcion}}
+                </div>
+
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-success">Crear</button>
+    </form>
+
+</div>
+
+<!-- tabla -->
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Temas creados
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Id Tema</th>
+                        <th>Nombre del Tema</th>
+                        <th>Estado del Tema</th>
+                        <th>Descripción del Tema</th>
+                        <th>Acción</th>
+
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% if temas %}
+                        {% for tema in temas %}
+                            <tr>
+                                <th>{{ tema.id}}</th>
+                                <th>{{ tema.nombre_tema}}</th>
+                                <th>{{ tema.estado}}</th>
+                                <th>{{ tema.descripcion}}</th>
+                                <th></th>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock content %}

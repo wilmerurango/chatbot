@@ -1,0 +1,66 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+    <form method="post">
+        <h2>Crear Actividad</h2>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">CurTemStem</label>
+                    {{form.curTemStem}}
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">ipo de Actividad</label>
+                    {{form.tipoActividad}}
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Nombre de la Actividad</label>
+                    {{form.nombre}}
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Estado de la Actividad</label>
+                    {{form.estado}}
+                </div>
+
+                <div class="mb-3">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <label for="exampleInputEmail1" class="form-label">Fecha Inicio</label>
+                            {{form.fecha_i}}
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="exampleInputEmail1" class="form-label">Fecha Fin</label>
+                            {{form.fecha_f}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Descripción de La Actividad</label>
+                    {{form.descripcion}}
+                </div>
+
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-success">Crear</button>
+    </form>
+
+</div>
+
+<script>
+    const picker = new tempusdominus.TempusDominus(document.getElementById('id_fecha_i'));
+</script>
+
+{% endblock content %}
