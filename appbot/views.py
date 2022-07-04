@@ -20,7 +20,7 @@ def chat(request, id_):
     conversacion = Conversacion.objects.filter(Q(user__username = "Bot")|Q(user__username=request.user.username), curso_id = id_)
     cont_msj_conversacion = conversacion.count()
 
-
+    # inicio --- enviar mensaje de inicio
     if cont_msj_conversacion == 0:
         msj_welcome = Conversacion()
         msj_welcome.user = User.objects.get(username = "Bot")
@@ -35,6 +35,11 @@ def chat(request, id_):
         msj_pregun_ini.mensaje = "¿ Quieres Iniciar ya ?"
         msj_pregun_ini.fecha = datetime.today()
         msj_pregun_ini.save()
+    # fin --- enviar mensaje de inicio
+    # inicio --- continuar con la conversacion
+    else: 
+        pass
+    # inicio --- continuar con la conversacion
 
     conversacion = Conversacion.objects.filter(Q(user__username = "Bot")| Q(user__username =request.user.username), curso_id = id_)
  

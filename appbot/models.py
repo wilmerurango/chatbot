@@ -55,10 +55,22 @@ class Curso(models.Model):
 
 # Create your models here.
 class Conversacion(models.Model):
+    link = "Link"
+    video = "Video"
+    lista = "Lista"
+    texto = "Texto"
+    
+    opcion_ = [
+        (link,"Link"),
+        (video,"Video"),
+        (lista,"Lista"),
+        (texto,"Texto"),]
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Usuario', null=True, on_delete=models.PROTECT)
     curso = models.ForeignKey(Curso, verbose_name='Curso', null=True, on_delete=models.PROTECT)
     mensaje = models.TextField('Mensaje')
     fecha = models.DateTimeField(verbose_name='Fecha/Hora')
+    tipo_mensje = models.CharField('Estado del Tema', max_length=10, choices=opcion_, default=texto, null=True)
 
     def __str__(self):
         return '%s' % (self.user.username)
@@ -158,7 +170,7 @@ class Inscripcion(models.Model):
     estado = models.IntegerField('Estado')
 
     def __str__(self):
-        return '%s' % (self.user.username)
+        return '%s %s %s' % (self.user.username,"--",self.curso.nombre_curso)
 
 
 class Progreso(models.Model):
