@@ -186,6 +186,7 @@ class Conversacion(models.Model):
     tipo_mensje = models.CharField('Estado del Tema', max_length=10, choices=opcion_, default=texto, null=True)
     inscripcion = models.ForeignKey(Inscripcion, verbose_name='Inscripcion', null=True, on_delete=models.PROTECT)
 
+    #comentario
     def __str__(self):
         return '%s' % (self.user.username)
 
