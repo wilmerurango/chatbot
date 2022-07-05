@@ -11,6 +11,8 @@ from django.db.models import Q
 
 from datetime import datetime
 
+# from matplotlib.cbook import print_cycles
+
 from .forms import *
 from .models import *
 # Create your views here.
@@ -36,10 +38,14 @@ def chat(request, id_):
         msj_pregun_ini.fecha = datetime.today()
         msj_pregun_ini.save()
     # fin --- enviar mensaje de inicio
+
     # inicio --- continuar con la conversacion
     else: 
-        pass
-    # inicio --- continuar con la conversacion
+        conversacion_ = Conversacion.objects.filter(Q(user__username = "Bot")| Q(user__username =request.user.username), curso_id = id_)
+        ultimo_msj_bot = conversacion_.filter(user__username = "Bot").last()
+         
+
+    # fin --- continuar con la conversacion
 
     conversacion = Conversacion.objects.filter(Q(user__username = "Bot")| Q(user__username =request.user.username), curso_id = id_)
  
@@ -136,6 +142,17 @@ class Create_Subtema(CreateView): #crear usuario
         context['subtemas'] = Subtema.objects.all()
         return context
 
+
+class Create_SubSubtema(CreateView): #crear usuario
+    model = SubSubtema
+    template_name = 'vistas/subsubtema_form.html'
+    form_class = SubSubtemaForm
+    success_url = reverse_lazy('Create_SubSubtema')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['subsubtemas'] = SubSubtema.objects.all()
+        return context
 
 class Create_CurTemStem(CreateView): #crear usuario
     model = CurTemStem

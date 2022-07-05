@@ -116,10 +116,27 @@ class Subtema(models.Model):
         return '%s %s %s' % (self.nombre, " -- ", self.estado)
 
 
+class SubSubtema(models.Model):
+
+    activo = "Activo"
+    inactivo = "Inactivo"
+
+    opcion_ = [(activo , "Activo"),(inactivo , "Inactivo")]
+    subtema = models.ForeignKey(Subtema, verbose_name='Subtema', null=True, on_delete=models.PROTECT)
+    nombre = models.CharField('Nombre tema nivel tres', max_length=50, blank=False, null=True)
+    descripcion = models.TextField('Descripción Tema')
+    estado = models.CharField('Estado del tema', max_length=10, choices=opcion_, default=activo, null=True)
+
+
+    def __str__(self):
+        return '%s %s %s' % (self.nombre, " -- ", self.estado)
+
+
 class CurTemStem(models.Model):
     curso = models.ForeignKey(Curso, verbose_name='Curso', null=True, on_delete=models.PROTECT)
     tema = models.ForeignKey(Tema, verbose_name='Tema', null=True, on_delete=models.PROTECT)
     subtema = models.ForeignKey(Subtema, verbose_name='Subtema', null=True, on_delete=models.PROTECT)
+    subSubtema = models.ForeignKey(SubSubtema, verbose_name='SubSubtema', null=True, on_delete=models.PROTECT)
     fecha_i = models.DateTimeField(verbose_name='Fecha Inicio')
     fecha_f = models.DateTimeField(verbose_name='Fecha Fin')
     orden = models.IntegerField('Orden', unique=True)

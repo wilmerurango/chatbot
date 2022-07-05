@@ -37,6 +37,7 @@ urlpatterns = [
     path('Create_TipoActividad/', Create_TipoActividad.as_view(), name="Create_TipoActividad"),
     path('Create_Tema/', Create_Tema.as_view(), name="Create_Tema"),
     path('Create_Subtema/', Create_Subtema.as_view(), name="Create_Subtema"),
+    path('Create_SubSubtema/', Create_SubSubtema.as_view(), name="Create_SubSubtema"),
     path('Create_CurTemStem/', Create_CurTemStem.as_view(), name="Create_CurTemStem"),
     path('Create_Actividad/', Create_Actividad.as_view(), name="Create_Actividad"),
     path('Create_ActividadDet/', Create_ActividadDet.as_view(), name="Create_ActividadDet"),

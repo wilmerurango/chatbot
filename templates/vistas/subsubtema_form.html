@@ -1,0 +1,88 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+    <form method="post">
+        <h2>Crear Tema de nivel tres</h2>
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">SubTema</label>
+                    {{form.subtema}}
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Nombre subsubtema</label>
+                    {{form.nombre}}
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Estado del subsubtema</label>
+                    {{form.estado}}
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Descripción del Tema</label>
+                    {{form.descripcion}}
+                </div>
+
+            </div>
+
+        </div>
+
+        <button type="submit" class="btn btn-success">Crear</button>
+    </form>
+
+</div>
+
+
+<!-- tabla -->
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Temas de Nivel Tres creados
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Id Tema</th>
+                        <th>Tema</th>
+                        <th>Subtema</th>
+                        <th>Nombre SubSubtema</th>
+                        <th>Estado del SubSubtema</th>
+                        <th>Descripción Subtema</th>
+                        <th>Acción</th>
+
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% if subsubtemas %}
+                        {% for subtema in subsubtemas %}
+                            <tr>
+                                <th>{{ subtema.id }}</th>
+                                <th>{{ subtema.subtema.tema }}</th>
+                                <th>{{ subtema.subtema }}</th>
+                                <th>{{ subtema.nombre }}</th>
+                                <th>{{ subtema.estado }}</th>
+                                <th>{{ subtema.descripcion }}</th>
+                                <th></th>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+{% endblock content %}

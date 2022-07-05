@@ -129,6 +129,28 @@ class SubtemaForm(forms.ModelForm):
                     })
 
 
+
+class SubSubtemaForm(forms.ModelForm):
+    class Meta:
+        model = SubSubtema
+        
+        fields=(
+            '__all__'
+        )
+
+        
+    def __init__(self, *args, **kwargs):  
+        super().__init__(*args, **kwargs)  
+        for field in iter(self.fields):  
+            self.fields[field].widget.attrs.update({  
+                'class': 'form-control border border-success',
+                # 'style': 'padding-left: 83px;'
+            })
+        self.fields['descripcion'].widget.attrs.update({  
+                        'style': 'height: 210px;'  
+                    })
+
+
 class CurTemStemForm(forms.ModelForm):
     class Meta:
         model = CurTemStem
