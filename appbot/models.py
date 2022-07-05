@@ -10,7 +10,6 @@ from django.conf import settings
 # from sqlalchemy import true
 
 
-
 class User(AbstractUser):
     si = "Si"
     no = "No"
@@ -54,27 +53,6 @@ class Curso(models.Model):
         return '%s %s %s' % (self.nombre_curso, " -- ",self.estado )
 
 # Create your models here.
-class Conversacion(models.Model):
-    link = "Link"
-    video = "Video"
-    lista = "Lista"
-    texto = "Texto"
-    
-    opcion_ = [
-        (link,"Link"),
-        (video,"Video"),
-        (lista,"Lista"),
-        (texto,"Texto"),]
-
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Usuario', null=True, on_delete=models.PROTECT)
-    curso = models.ForeignKey(Curso, verbose_name='Curso', null=True, on_delete=models.PROTECT)
-    mensaje = models.TextField('Mensaje')
-    fecha = models.DateTimeField(verbose_name='Fecha/Hora')
-    tipo_mensje = models.CharField('Estado del Tema', max_length=10, choices=opcion_, default=texto, null=True)
-
-    def __str__(self):
-        return '%s' % (self.user.username)
-
 
 
 class TipoActividad(models.Model):
@@ -188,6 +166,29 @@ class Inscripcion(models.Model):
 
     def __str__(self):
         return '%s %s %s' % (self.user.username,"--",self.curso.nombre_curso)
+
+class Conversacion(models.Model):
+    link = "Link"
+    video = "Video"
+    lista = "Lista"
+    texto = "Texto"
+    
+    opcion_ = [
+        (link,"Link"),
+        (video,"Video"),
+        (lista,"Lista"),
+        (texto,"Texto"),]
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Usuario', null=True, on_delete=models.PROTECT)
+    curso = models.ForeignKey(Curso, verbose_name='Curso', null=True, on_delete=models.PROTECT)
+    mensaje = models.TextField('Mensaje')
+    fecha = models.DateTimeField(verbose_name='Fecha/Hora')
+    tipo_mensje = models.CharField('Estado del Tema', max_length=10, choices=opcion_, default=texto, null=True)
+    inscripcion = models.ForeignKey(Inscripcion, verbose_name='Inscripcion', null=True, on_delete=models.PROTECT)
+
+    def __str__(self):
+        return '%s' % (self.user.username)
+
 
 
 class Progreso(models.Model):
