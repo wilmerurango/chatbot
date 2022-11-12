@@ -8,6 +8,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login</title>
+
+  <link rel="stylesheet" href="{% static 'dist/css/all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'dist/css/core.min.css' %}">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link rel="stylesheet" href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/dist/mdb5/standard/core.min.css">
   <link rel="stylesheet" id="roboto-subset.css-css" href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/mdb5/fonts/roboto-subset.css?ver=3.9.0-update.5" type="text/css" media="all">
@@ -47,22 +51,22 @@
               <center><h1>WELCOME</h1></center>
               
     
-              <div class="divider d-flex align-items-center my-4">
+              <!-- <div class="divider d-flex align-items-center my-4"> -->
                 <!-- <p class="text-center fw-bold mx-3 mb-0">Or</p> -->
-              </div>
+              <!-- </div> -->
 
-              
+              <br>
     
               <!-- Email input -->
               <div class="form-outline mb-4">
-                <input type="text" id="id_username" name = "username" class="form-control form-control-lg border border-success" style="padding-left: 110px;"
+                <input type="text" id="id_username" name = "username" class="form-control form-control-lg border-right border-bottom border-left border-success" style="padding-left: 110px;"
                   placeholder="Ingrese su Usuario" />
                 <label class="form-label" for="id_username">Usuario:</label>
               </div>
     
               <!-- Password input -->
               <div class="form-outline mb-3">
-                <input type="password" id="id_password" name="password" class="form-control form-control-lg border border-success" style="padding-left: 110px;"
+                <input type="password" id="id_password" name="password" class="form-control form-control-lg border-right border-bottom border-left border-success" style="padding-left: 110px;"
                   placeholder="Ingrese su Contraseña" />
                 <label class="form-label" for="id_password">Contraseña:</label>
               </div>

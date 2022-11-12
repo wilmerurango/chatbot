@@ -14,9 +14,20 @@
     <link href="{% static 'dist/css/estilos_chat.css' %}" rel="stylesheet" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- <link rel="stylesheet" href="node_modules/mdbootstrap/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="{% static 'mdb/css/mdb.min.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'mdb/mdbootstrap/css/style.css' %}"> -->
+    
+    <!-- MDB -->
+    <!-- <script
+    type="text/javascript"
+    src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/5.0.0/mdb.min.js"
+    ></script> -->
 
 </head>
-<body>
+<body onload="cargar_conversacion();">
 <div class="rounded" style="position: relative; background: #3a87ad; top: 0px; height: 100px; margin: 10px;">
     .
     <div class="container" style="position: absolute;
@@ -29,13 +40,14 @@
             <div class="col-lg-12">
                 <div class="card chat-app border border-info">
                     <div id="plist" class="people-list">
-                        <div class="input-group color_gris">
+                        <!-- <div class="input-group color_gris">
                             <div class="input-group-prepend">
                                 <span class="input-group-text"><i class="fa fa-search"></i></span>
                             </div>
                             <input type="text" class="form-control" placeholder="Buscar...">
                             
                         </div>
+
                         <ul class="list-unstyled chat-list mt-2 mb-0">
     
                             <li class="clearfix active">
@@ -46,18 +58,64 @@
                                 </div>
                             </li>
                         
-                        </ul>
+                        </ul> -->
+
+                        <div class="rounded color_gris mb-1 pt-1" style="text-align: center;">
+                            <h5 class=""> <strong>INFO DEL CURSO</strong> </h5>
+                        </div>
+
+
+                        <div class="rounded  color_gris mb-2">
+
+                            <div class="row p-2" style="text-align: center;">
+
+                                <div class="col-lg-6" >
+                                    <div class="name">Nota Parcial</div>
+                                    <div class="status"> 3.5 </div>                                            
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="name">Nota Curso</div>
+                                    <div class="status"> 3.0 </div>                                            
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="rounded  mb-3 pt-1" style="text-align: center;">
+                            <!-- Progreso -->
+                            <div class="progress">
+                                <div id="progreso_avance" class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="{{progreso_avance}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progreso_avance}}%">{{progreso_avance}}%</div>
+                            </div>
+                        </div>
+                       
+                        
+
+                        <div class="treeview-animated color_gris rounded overflow-auto modo_scroll small" style="height: 30vh;">
+                            <h6 class="pt-3 pl-3">Curso</h6>
+                            
+                            <ul class="treeview-animated-list mb-3" id = "curso_completo_">
+                                
+                                
+                                
+                            </ul>
+                        </div>
+                              
+                        
                     </div>
+
                     <div class="chat border-info">
                         <div class="chat-header clearfix rounded color_gris border-info">
                             <!-- <div class="row" > -->
                                 <div class="hidden-sm">
                                     <a href="javascript:void(0);" data-toggle="modal" data-target="#view_info" style="align-content: left;">
                                         <img src="{% static 'dist/img/chatbot.png' %}" alt="avatar">
+                                        
                                     </a>
+                                    
                                     <div class="text-right">
                                         <!-- <a href="javascript:void(0);" class="btn btn-outline-secondary"><i class="fa fa-camera"></i></a>
                                         <a href="javascript:void(0);" class="btn btn-outline-primary"><i class="fa fa-image"></i></a>-->
+                                        <h5 style="display: inline;color:#3a87ad;">{{nombre_curso}}</h5> 
                                         <a href="{% url 'index' %}" class="btn btn-outline-info"><i class="fa fa-cogs"></i></a> 
                                         <a href="{% url 'logout' %}" class="btn btn-outline-warning"> Salir</a>
                                     </div>
@@ -65,119 +123,687 @@
                             <!-- </div> -->
                         </div>
     
-                        <div class="chat-history overflow-auto modo_scroll">
+                        <div class="chat-history overflow-auto modo_scroll" data-id_curso = {{id_curso}} id="chathistory" data-url_msj="{% url 'msj_user' %}">
     
                             <ul class="m-b-0 conversation" id="content_conversacion">
 
-                                {% for msj in conversacions %}
-
-                                    {% if msj.user.usuario_bot == "Si" %}
-                                        <li class="clearfix">
-                            
-                                            <div class="message my-message" style="max-width: 90%;">
-                                                <span>{{ msj.mensaje}}</span>
-                                                <br>
-                                                <span class="message-time" style="color: rgb(158, 159, 159);">
-                                                    {{ msj.fecha }}
-                                                    
-                                                </span>
-                                            </div> 
-                                                                            
-                                        </li> 
-
-                                    {% else %}
-                                        
-                                        <li class="clearfix">
-        
-                                            <div class="message other-message float-right" style="max-width: 90%;"> 
-                                                <span>Hi Aiden, how are you? How is the projecfnfkjbnfkbkdfbvdfkbvfkhvbfdkvbkjvhbkcvhbdlvkhblvkhfbvhfblkhdfbvkdfjvbñkdfjvbdfkñjvbfkñjvbdfkjñvbkjñfkñvjbkñbkt coming along? </span> 
-                                                <br>
-                                                <span class="message-time" style="color: rgb(158, 159, 159);">
-                                                    5:10:10
-                                                </span>
-                                            </div>
-                                            
-                                        </li>
-                                    {% endif %}
-
-
-                                {% endfor %}
-                                
+                                <li class="clearfix">
+                                    <div class="message my-message" style="max-width: 90%;">
+                                        <h5>titulo</h5>
+                                        <hr><span></span>
+                                        <span>
+                                            <iframe width="560" height="315" src="https://www.youtube.com/embed/62wDYoPC4Sg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                        </span>
+                                        <br>
+                                        <span class="message-time" style="color: rgb(158, 159, 159);">
+                                            hora
+                                        </span>
+                                    </div>
+                                </li>
     
                             </ul>
-    
+                            
+                            <span id="final"></span>
                         </div>
+
                         <div class="chat-message clearfix rounded border border-info" style="background: #f5f1ee;margin: 0 auto;">
                            
                            <form action="">
                                 <div class="input-group mb-0">
+                                    <input type="text" class="form-control" id="comment" placeholder="Escribe aqui..." onkeypress="btn_enter(event);">                                    
                                     <div class="input-group-prepend">
-                                        
-                                        <span onclick="enviar_mensaje();" class="input-group-text"><a href="#"> <i class="fa fa-send"></i></a></span>
+                                        <span class="input-group-text"><a href="#"> <i id="enviar_msj" class="fa fa-send"></i></a></span>
                                     </div>
-                                    
-                                    <input type="text" class="form-control" id="comment" placeholder="Escribe aqui...">                                    
+                                    <div>
+                                        <span> &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    </div>
+                                    <div class="input-group-prepend">
+                                        <button type="button" class="bg-success rounded" id="siguiente_paso" name="">Siguiente</button>
+                                        <!-- <a class="btn btn-success rounded" id="siguiente_paso"  href="#" target="">Siguiente</a> -->
+                                    </div>
                                 </div>
                            </form>
-                           
- 
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
     </div>
-    
-
 </div>
 
 
 
-<script type="text/javascript">
-    function enviar_mensaje(){
-            var hoy = new Date();
-            var hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
+<script>
 
-            var caja_conversacion = document.getElementById("content_conversacion");
-            var mensaje = document.getElementById("comment").value;
-            var caja_mensaje = document.getElementById("comment");
+    // esto envia el escroll de la conversacion al final del div al moento de cargar la pagina
+    document.getElementById('final').scrollIntoView(false);
 
-            var c_li = document.createElement("li");
-            c_li.className += "clearfix";
+
+    $("#siguiente_paso").click(function(){
+        var url_sgt_paso = $("#siguiente_paso").attr("name"); 
+        console.log('acabo de pasar la url', url_sgt_paso);
+        $.ajax({                       // initialize an AJAX request
+                url: url_sgt_paso,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                data: {
+                    // 'msj': 1,       // add the country id to the GET parameters
+                    // 'id_': id_curso_,
+                },
+                dataType:"json",
+                success: function(data){
+                    console.log('esta dentro del success: ',data);
+                    var caja_conversacion = document.getElementById("content_conversacion");
+                    var caja_mensaje = document.getElementById("comment");
+                    var siguient = document.getElementById("siguiente_paso");
+                    var progreso_avance = document.getElementById("progreso_avance");
+
+                    
+                    for(dat in data){
+                        if(data[dat].tipo_user != "Bot"){
+
+                            switch(data[dat].tipo_msj){
+
+                                case "Texto":
+
+                                    caja_conversacion.insertAdjacentHTML("beforeend",
+                                        `<li class="clearfix">
+                                        <div class="message other-message float-right" style="max-width: 90%;">
+                                            <span>`+data[dat].msj+`</span> 
+                                                <br>
+                                                <span class="message-time" style="color: rgb(158, 159, 159);">
+                                                    `+data[dat].datetime+`
+                                                </span>
+                                            </div>
+                                        </li>
+                                        `
+                                    );
+                                    break;
+                                    
+                            };
+                            
+                            document.getElementById('final').scrollIntoView({block: "end", behavior: "smooth"});//esto es para colocar el enfecto al momento de envia el mensaje y pueda verse
+                        
+                        }else{
+
+                            switch(data[dat].tipo_msj){
+
+                                case "Lista":
+
+                                    // var temas = JSON.parse(data[dat].msj)
+                                    // console.log(typeof(JSON.parse(data[dat].msj)));
+                                    var lista = JSON.parse(data[dat].msj);
+                                    console.log('holaaaaaa: ',typeof(JSON.parse(data[dat].msj)));
+                                    // crer la lista de temas
+                                    var a = '<ul>';
+                                    for(tema in lista){
+                                        a += `<a  onclick="poner_respuesta(this.id);"  id="`+lista[tema].split(';')[1]+`" href="#"> <li>`+  lista[tema].split(';')[1]  +`). `+   lista[tema].split(';')[0]+` </li> </a>`;
+                                    };
+                                    a += '</ul>'
+
+                                    caja_conversacion.insertAdjacentHTML("beforeend",
+                                        `<li class="clearfix">
+                                            <div class="message my-message" style="max-width: 90%;">
+                                                <h5>`+data[dat].title+`</h5>
+                                                <span>`+a+`</span>
+                                                <br>
+                                                <span class="message-time" style="color: rgb(158, 159, 159);">
+                                                    `+data[dat].datetime+`
+                                                </span>
+                                            </div>
+                                        </li>
+                                        `
+                                    );  
+                                    break;
+
+                                case "Texto":
+
+                                    switch (data[dat].recurso) {
+                                        case 'Archivo':
+                                            archi = `<hr> <a href="`+data[dat].ruta_recurso+`"> <i class="fa fa-file ic-w mr-1"></i> Recurso de ayuda</a>`;
+                                            break;
+                                        case 'Enlace':
+                                            archi = `<hr> <a target="_blank" href="`+data[dat].ruta_recurso+`"> <i class="fa fa-globe ic-w mr-1"></i> Recurso de ayuda</a>`;
+                                            break;
+                                        case 'Video':
+                                            archi = `<hr><span>`+data[dat].ruta_recurso+`</span>`;
+                                            break;
+                                        default:
+                                            archi ="";
+                                            break;
+                                    };
+
+
+                                    caja_conversacion.insertAdjacentHTML("beforeend",
+                                        `<li class="clearfix">
+                                        <div class="message my-message " style="max-width: 90%;">
+                                            <h5>`+data[dat].title+`</h5>
+                                            <span>`+data[dat].msj+`</span> 
+                                               `+archi+` <br>
+                                                <span class="message-time" style="color: rgb(158, 159, 159);">
+                                                    `+data[dat].datetime+`
+                                                </span>
+                                            </div>
+                                        </li>
+                                        `
+                                    );
+                                break;
+                            };
+
+                            // document.getElementById('final').scrollIntoView({block: "end", behavior: "smooth"});//esto es para colocar el enfecto al momento de envia el mensaje y pueda verse
+                        };
+
+                        siguient.name = "/"+data[dat].sgt_paso;
+                        progreso_avance.textContent  = data[dat].progreso_avance+'%';
+                        progreso_avance.style.width = data[dat].progreso_avance+'%';
+                        // progreso_avance.attr.aria-valuenow = data[dat].progreso_avance;
+                    };
+
+
+                    caja_mensaje.value="";
+                    // caja_mensaje.focus();
+                    caja_mensaje.readOnly = true;
+                    document.getElementById('final').scrollIntoView({block: "end", behavior: "smooth"});//esto es para colocar el enfecto al momento de envia el mensaje y pueda verse
+
+                },
+                error: function(error){
+                    console.log('Este es el error: ',error);
+                }
             
-            var div1 = document.createElement("div");
-            div1.className += "message other-message float-right";
-            div1.style = "max-width: 90%;"
+            });
+    
+        });
 
-            var spann = document.createElement("span");
-            spann.textContent = mensaje
+    // este codigo se utiliza para enviar mensaje cuando se le da un click al boton "enviar_msj"
+    $("#enviar_msj").click(function () {
+        var mensaje = document.getElementById("comment").value;
 
-            var brr = document.createElement("br");
+        if(mensaje != ""){
 
-            var spann2 = document.createElement("span");
-            spann2.className += "message-time"
-            spann2.style = "color: rgb(158, 159, 159);"
-            spann2.textContent = "fecha hora"
-
-
-            div1.appendChild(spann)
-            div1.appendChild(brr)
-            div1.appendChild(spann2)
-            c_li.appendChild(div1)
+            var url = $("#chathistory").attr("data-url_msj"); 
+            var id_curso_ = $("#chathistory").attr("data-id_curso");  // get the url of the `load_cities` view
             
+            $.ajax({                       // initialize an AJAX request
+                
+                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                data: {
+                    'msj': mensaje,       // add the country id to the GET parameters
+                    'id_': id_curso_,
+                },
+                dataType:"json",
+
+                success: function (data) {   // `data` is the return of the `load_cities` view function
+                    var caja_conversacion = document.getElementById("content_conversacion");
+                    var caja_mensaje = document.getElementById("comment");
+                    var siguient = document.getElementById("siguiente_paso");
+
+                    // console.log(data)
+
+                    
+                    for(dat in data){
+                        if(data[dat].tipo_user != "Bot"){
+
+                            switch(data[dat].tipo_msj){
+
+                                case "Texto":
+                                    caja_conversacion.insertAdjacentHTML("beforeend",
+                                        `<li class="clearfix">
+                                        <div class="message other-message float-right" style="max-width: 90%;">
+                                            <span>`+data[dat].msj+`</span> 
+                                                <br>
+                                                <span class="message-time" style="color: rgb(158, 159, 159);">
+                                                    `+data[dat].datetime+`
+                                                </span>
+                                            </div>
+                                        </li>
+                                        `
+                                    );
+                                    break;
+                                    
+                            };
+                            
+                            document.getElementById('final').scrollIntoView({block: "end", behavior: "smooth"});//esto es para colocar el enfecto al momento de envia el mensaje y pueda verse
+                        
+                        }else{
+
+                            switch(data[dat].tipo_msj){
+
+                                case "Lista":
+                                    // var temas = JSON.parse(data[dat].msj)
+                                    // console.log(typeof(JSON.parse(data[dat].msj)));
+                                    var tem = data[dat].msj;
+                                    
+                                    // crer la lista de temas
+                                    var a = '<ul>';
+                                    for(tema in tem){
+                                        a += `<li>`+tem[tema].split(';')[0]+`</li>`;
+                                    };
+                                    a += '</ul>'
+
+                                    caja_conversacion.insertAdjacentHTML("beforeend",
+                                        `<li class="clearfix">
+                                            <div class="message my-message" style="max-width: 90%;">
+                                                <h5>`+data[dat].title+`</h5>
+                                                <span>`+a+`</span>
+                                                <br>
+                                                <span class="message-time" style="color: rgb(158, 159, 159);">
+                                                    `+data[dat].datetime+`
+                                                </span>
+                                            </div>
+                                        </li>
+                                        `
+                                    );  
+                                    break;
+                            };
+
+                            document.getElementById('final').scrollIntoView({block: "end", behavior: "smooth"});//esto es para colocar el enfecto al momento de envia el mensaje y pueda verse
+                        };
+
+                        siguient.name = "/"+data[dat].sgt_paso;
+                        // siguient.href="/"+data[dat].sgt_paso;
+                    };
+
+
+                    caja_mensaje.value="";
+                    caja_mensaje.focus();
+                    document.getElementById('final').scrollIntoView({block: "end", behavior: "smooth"});//esto es para colocar el enfecto al momento de envia el mensaje y pueda verse
+
+                }
+            });
+
+        };
+        
+    });
+
+    
+    function  btn_enter(e){
+        var mensaje = document.getElementById("comment").value;
+
+        if(e.keyCode=='13' && mensaje != ""){
             
-            // console.log(c_li)
-            if(mensaje != ""){
-                caja_conversacion.appendChild(c_li)
-                caja_mensaje.value="";
+            var url = $("#chathistory").attr("data-url_msj"); 
+            var id_curso_ = $("#chathistory").attr("data-id_curso");  // get the url of the `load_cities` view
+
+            $.ajax({                       // initialize an AJAX request
+                
+                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                data: {
+                    'msj': mensaje,       // add the country id to the GET parameters
+                    'id_': id_curso_,
+                },
+                dataType:"json",
+
+                success: function (data) {   // `data` is the return of the `load_cities` view function
+                    var caja_conversacion = document.getElementById("content_conversacion");
+                    var caja_mensaje = document.getElementById("comment");
+                    var siguient = document.getElementById("siguiente_paso");
+
+                    // console.log(data)
+
+                    
+                    for(dat in data){
+                        if(data[dat].tipo_user != "Bot"){
+
+                            switch(data[dat].tipo_msj){
+
+                                case "Texto":
+                                    caja_conversacion.insertAdjacentHTML("beforeend",
+                                        `<li class="clearfix">
+                                        <div class="message other-message float-right" style="max-width: 90%;">
+                                            <span>`+data[dat].msj+`</span> 
+                                                <br>
+                                                <span class="message-time" style="color: rgb(158, 159, 159);">
+                                                    `+data[dat].datetime+`
+                                                </span>
+                                            </div>
+                                        </li>
+                                        `
+                                    );
+                                    break;
+                                    
+                            };
+                            
+                            document.getElementById('final').scrollIntoView({block: "end", behavior: "smooth"});//esto es para colocar el enfecto al momento de envia el mensaje y pueda verse
+                        
+                        }else{
+
+                            switch(data[dat].tipo_msj){
+
+                                case "Lista":
+                                    // var temas = JSON.parse(data[dat].msj)
+                                    // console.log(typeof(JSON.parse(data[dat].msj)));
+                                    var tem = data[dat].msj;
+                                    
+                                    // crer la lista de temas
+                                    var a = '<ul>';
+                                    for(tema in tem){
+                                        a += `<li>`+tem[tema].split(';')[0]+`</li>`;
+                                    };
+                                    a += '</ul>'
+
+                                    caja_conversacion.insertAdjacentHTML("beforeend",
+                                        `<li class="clearfix">
+                                            <div class="message my-message" style="max-width: 90%;">
+                                                <h5>`+data[dat].title+`</h5>
+                                                <span>`+a+`</span>
+                                                <br>
+                                                <span class="message-time" style="color: rgb(158, 159, 159);">
+                                                    `+data[dat].datetime+`
+                                                </span>
+                                            </div>
+                                        </li>
+                                        `
+                                    );  
+                                    break;
+                            };
+
+                            document.getElementById('final').scrollIntoView({block: "end", behavior: "smooth"});//esto es para colocar el enfecto al momento de envia el mensaje y pueda verse
+                        };
+
+                        siguient.name = "/"+data[dat].sgt_paso;
+                        // siguient.href="/"+data[dat].sgt_paso;
+                    };
+
+
+                    caja_mensaje.value="";
+                    caja_mensaje.focus();
+                    document.getElementById('final').scrollIntoView({block: "end", behavior: "smooth"});//esto es para colocar el enfecto al momento de envia el mensaje y pueda verse
+
+                }
+            });
+
+
+        };
+
+
+    };
+
+
+    function cargar_conversacion(){
+
+        var caja_conversacion = document.getElementById("content_conversacion");
+        var caja_mensaje = document.getElementById("comment");
+        var siguient = document.getElementById("siguiente_paso");
+        
+
+        var chat = {{ conversacions|safe }};
+        var users = {{ users|safe }};
+
+        
+ 
+        siguient.name = '{{siguiente_paso}}';
+        
+
+        // obtener el id del usuario bot
+        for(user in users){
+            if (users[user].fields.tipo_user=="Bot") {
+                var id_user_bot = users[user].pk
+            }
+        };
+
+        // console.log(id_user_bot)
+
+        for(msj in chat){
+            // console.log(chat[msj].fields.user);
+            if(chat[msj].fields.user == id_user_bot){
+
+                switch(chat[msj].fields.tipo_mensje){
+
+                    case 'Texto':
+
+                        switch (chat[msj].fields.recurso) {
+                            case 'Archivo':
+                                archi = `<hr> <a href="`+chat[msj].fields.recurso_dir+`"> <i class="fa fa-file ic-w mr-1"></i> Recurso de ayuda</a>`;
+                                break;
+                            case 'Enlace':
+                                archi = `<hr> <a target="_blank" href="`+chat[msj].fields.recurso_dir+`"> <i class="fa fa-globe ic-w mr-1"></i> Recurso de ayuda</a>`;
+                                break;
+                            case 'Video':
+                                archi = `<hr><span>`+chat[msj].fields.recurso_dir+`</span>`;
+                                break;
+                            default:
+                                archi ="";
+                                break;
+                        };
+
+
+
+                        caja_conversacion.insertAdjacentHTML("beforeend",
+                            `<li class="clearfix">
+                                <div class="message my-message" style="max-width: 90%;">
+                                    <h5>`+chat[msj].fields.title+`</h5>
+                                    <span>`+chat[msj].fields.mensaje+`</span> 
+                                    `+archi+`<br>
+                                    <span class="message-time" style="color: rgb(158, 159, 159);">
+                                        `+chat[msj].fields.fecha+`
+                                    </span>
+                                </div>
+                            </li>
+                            `
+                        );
+                        break;
+
+                    case 'Lista':
+
+                        var tem = JSON.parse(chat[msj].fields.mensaje);
+                                    
+                        // crer la lista de temas
+                        var a = '<ul>';
+                        for(tema in tem){
+                            a +=   `<a  onclick="poner_respuesta(this.id);"  id="`+tem[tema].split(';')[1]+`" href="#"> <li>`+  tem[tema].split(';')[1]  +`). `+   tem[tema].split(';')[0]+` </li> </a>`;
+                            console.log(tem[tema].split(';')[1])
+                        };
+                        a += '</ul>'
+
+                        caja_conversacion.insertAdjacentHTML("beforeend",
+                            `<li class="clearfix">
+                                <div class="message my-message" style="max-width: 90%;">
+                                    <h5>`+chat[msj].fields.title+`</h5>
+                                    <span>`+a+`</span>
+                                    <br>
+                                    <span class="message-time" style="color: rgb(158, 159, 159);">
+                                        `+chat[msj].fields.fecha+`
+                                    </span>
+                                </div>
+                            </li>
+                            `
+                        ); 
+                        break;
+
+                };
+
+            }else{
+
+                switch(chat[msj].fields.tipo_mensje){
+                    case 'Texto':
+                        caja_conversacion.insertAdjacentHTML("beforeend",
+                            `<li class="clearfix">
+                                <div class="message other-message float-right" style="max-width: 90%;">
+                                    
+                                    <span>`+chat[msj].fields.mensaje+`</span> 
+                                    <br>
+                                    <span class="message-time" style="color: rgb(158, 159, 159);">
+                                        `+chat[msj].fields.fecha+`
+                                    </span>
+
+                                </div>
+                            </li>
+                            `
+                        );
+                        break;
+                };
+
             };
-            
-            
+        };
 
-  
-        }
+        
+        // chat[msj].fields.user.tipo_user
+        document.getElementById('final').scrollIntoView(false);
+    };
+    // esta funcion se hace para controlar la accion del boton "ENTER"
+    // esto para que el boton enter envie el mensaje y no recargue la pagina
+    
+
+    function poner_respuesta(id){
+
+        console.log(id);
+
+        // var mensaje = document.getElementById("comment").value;
+        var id_curso_ = $("#chathistory").attr("data-id_curso");
+        var caja_coment =  document.getElementById("comment");
+        
+        caja_coment.value = id;
+
+        $.ajax({                       // initialize an AJAX request
+            url: "{% url 'send_save_respuesta' %}",                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'msj': id,        // add the country id to the GET parameters
+                'id_': id_curso_,
+            },
+            dataType:"json",
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                var caja_conversacion = document.getElementById("content_conversacion");
+                    var caja_mensaje = document.getElementById("comment");
+                    // var siguient = document.getElementById("siguiente_paso");
+
+                    // console.log(data)
+
+                    
+                    for(dat in data){
+                        if(data[dat].tipo_user != "Bot"){
+
+                            switch(data[dat].tipo_msj){
+
+                                case "Texto":
+                                    caja_conversacion.insertAdjacentHTML("beforeend",
+                                        `<li class="clearfix">
+                                        <div class="message other-message float-right" style="max-width: 90%;">
+                                            <span>`+data[dat].msj+`</span> 
+                                                <br>
+                                                <span class="message-time" style="color: rgb(158, 159, 159);">
+                                                    `+data[dat].datetime+`
+                                                </span>
+                                            </div>
+                                        </li>
+                                        `
+                                    );
+                                    break;
+                                    
+                            };
+                            
+                            document.getElementById('final').scrollIntoView({block: "end", behavior: "smooth"});//esto es para colocar el enfecto al momento de envia el mensaje y pueda verse
+                        
+                        }else{
+
+                            switch(data[dat].tipo_msj){
+
+                                case "Lista":
+                                    // var temas = JSON.parse(data[dat].msj)
+                                    // console.log(typeof(JSON.parse(data[dat].msj)));
+                                    var tem = data[dat].msj;
+                                    
+                                    // crer la lista de temas
+                                    var a = '<ul>';
+                                    for(tema in tem){
+                                        a += `<li>`+tem[tema].split(';')[0]+`</li>`;
+                                    };
+                                    a += '</ul>'
+
+                                    caja_conversacion.insertAdjacentHTML("beforeend",
+                                        `<li class="clearfix">
+                                            <div class="message my-message" style="max-width: 90%;">
+                                                <h5>`+data[dat].title+`</h5>
+                                                <span>`+a+`</span>
+                                                <br>
+                                                <span class="message-time" style="color: rgb(158, 159, 159);">
+                                                    `+data[dat].datetime+`
+                                                </span>
+                                            </div>
+                                        </li>
+                                        `
+                                    );  
+                                    break;
+                            };
+
+                            document.getElementById('final').scrollIntoView({block: "end", behavior: "smooth"});//esto es para colocar el enfecto al momento de envia el mensaje y pueda verse
+                        };
+
+                        // siguient.name = "/"+data[dat].sgt_paso;
+                        // siguient.href="/"+data[dat].sgt_paso;
+                    };
+
+
+                    caja_mensaje.value="";
+                    caja_mensaje.focus();
+                    document.getElementById('final').scrollIntoView({block: "end", behavior: "smooth"});//esto es para colocar el enfecto al momento de envia el mensaje y pueda verse
+
+            }
+        });
+
+
+    }
 
 </script>
+
+
+<script type="text/javascript" src="{% static 'mdb/js/jquery.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'mdb/js/popper.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'mdb/js/bootstrap.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'mdb/js/mdb.min.js' %}"></script> 
+<script type="text/javascript" src="{% static 'mdb/js/treeview.min.js.map' %}"></script>
+<script type="text/javascript" src="{% static 'mdb/js/treeview.min' %}"></script>
+
+
+<script>
+    var caja_curso_completo = document.getElementById("curso_completo_");
+        var curso_completo = {{curso_completo|safe}}
+
+        prim_parte = '';
+        for(tema in curso_completo){
+            console.log(tema)
+
+            prim_parte += `<li class="treeview-animated-items">
+                            <a class="closed">
+                            <i class="fas fa-angle-right"></i>
+                            <span><i class="fa fa-book ic-w mx-1"></i>`+tema+`</span>
+                            </a>
+
+                            <ul class="nested">`;
+
+            segunda_parte = '';
+            for(subtema in curso_completo[tema]){
+                console.log(subtema)
+
+                segunda_parte += `<li class="treeview-animated-items">
+
+                                    <a class="closed"><i class="fas fa-angle-right"></i>
+                                        <span><i class="far fa-envelope-open ic-w mx-1"></i>`+subtema+`</span>
+                                    </a>
+                                    <ul class="nested">`;
+
+                tercera_parte = '';
+                for(sub_subtema in curso_completo[tema][subtema]){
+                    console.log(curso_completo[tema][subtema][sub_subtema])
+
+                    tercera_parte += `<li><div class="treeview-animated-element"><i class="fa fa-file ic-w mr-1"></i>`+ curso_completo[tema][subtema][sub_subtema] +`</li>`;
+                };
+                tercera_parte += '</ul>';
+                segunda_parte += tercera_parte;
+                segunda_parte += '</li>';
+            };
+            prim_parte += segunda_parte;
+            prim_parte += '</ul>';
+            prim_parte += '</li>';
+        };
+
+        caja_curso_completo.insertAdjacentHTML("beforeend",prim_parte);
+
+
+        // Treeview Initialization
+        $(document).ready(function() {
+        $('.treeview-animated').mdbTreeview();
+        
+    });
+</script>
+
 </body>
 </html>

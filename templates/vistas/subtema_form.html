@@ -3,8 +3,14 @@
 {% block content %}
 
 <div class="card border rounded m-3 p-3 shadow-sm bg-light">
-    <form method="post">
-        <h2>Crear Sub Tema</h2>
+    <form method="post" enctype="multipart/form-data">
+
+        {% if accion == "crear" %}
+            <h2>Crear Subtema</h2>
+        {% else %}
+            <h2>Editar Sub Tema</h2>
+        {% endif %}
+        
         {% csrf_token %}
         <div class="row">
             <div class="col-lg-6">
@@ -20,6 +26,18 @@
                     <label for="exampleInputEmail1" class="form-label">Estado del Subtema</label>
                     {{form.estado}}
                 </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Recurso</label>
+                    {{form.recurso}}
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"></label>
+                    {{form.recurso_link_video}}
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"></label>
+                    {{form.recurso_archivo}}
+                </div>
 
             </div>
 
@@ -33,12 +51,16 @@
 
         </div>
 
-        <button type="submit" class="btn btn-success">Crear</button>
+        {% if accion == "crear" %}
+            <button type="submit" class="btn btn-success">Crear</button>
+        {% else %}
+        <button type="submit" class="btn btn-success">Actualizar</button>
+        <a class="btn btn-danger" href="{% url 'Create_Subtema' %}">Cancelar</a>
+        {% endif %}
     </form>
-
 </div>
 
-
+{% if accion == "crear" %}
 <!-- tabla -->
 <div class="card border rounded m-3 p-3 shadow-sm bg-light">
 
@@ -70,7 +92,9 @@
                                 <th>{{ subtema.nombre }}</th>
                                 <th>{{ subtema.estado }}</th>
                                 <th>{{ subtema.descripcion }}</th>
-                                <th></th>
+                                <th>
+                                    <a class="btn btn-primary" href="{% url 'Update_Subtema' subtema.id %}">Editar</a>
+                                </th>
                             </tr>
                         {% endfor %}
                     {% endif %}
@@ -81,6 +105,6 @@
     </div>
 
 </div>
-
+{% endif %}
 
 {% endblock content %}

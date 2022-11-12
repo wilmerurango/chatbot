@@ -213,6 +213,9 @@ body{
     background: rgba(193, 194, 196, 0.356);
 }
 
+.color_panel{
+    background: #3a87ad;
+}
 .message-time {
     margin: 0 !important;
     margin-left: 50px !important;

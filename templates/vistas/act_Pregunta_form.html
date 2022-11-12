@@ -1,0 +1,93 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+    <form method="post">
+
+        {% if accion == "crear" %}
+            <h2>Crear Preguntas de la Actividad</h2>
+        {% else %}
+            <h2>Editar Preguntas de la Actividad</h2>
+        {% endif %}
+        
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Actividad</label>
+                    {{form.actividad}}
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Orden</label>
+                    {{form.tipo}}
+                </div>
+
+            </div>
+
+            <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Descripción Actividad</label>
+                    {{form.descripcion}}
+                </div>
+
+            </div>
+
+        </div>
+
+        {% if accion == "crear" %}
+            <button type="submit" class="btn btn-success">Crear</button>
+        {% else %}
+            <button type="submit" class="btn btn-success">Actualizar</button>
+            <a class="btn btn-danger" href="{% url 'Create_Act_Pregunta' %}">Cancelar</a>
+            {% endif %}
+    </form>
+
+</div>
+
+{% if accion == "crear" %}
+<!-- tabla -->
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Preguntas de la Actividad creadas
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Actividad</th>
+                        <th>Tipo</th>
+                        <th>Descripción Actividad</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% if Act_Preguntas %}
+                        {% for Act_Pregunta in Act_Preguntas %}
+                            <tr>
+                                <th>{{ Act_Pregunta.id }}</th>
+                                <th>{{ Act_Pregunta.actividad.nombre }}</th>
+                                <th>{{ Act_Pregunta.tipo }}</th>
+                                <th>{{ Act_Pregunta.descripcion }}</th>
+                                <th>
+                                    <a  class="btn btn-primary"  href="{% url 'Update_Act_Pregunta' Act_Pregunta.id %}">Editar</a> 
+                                </th>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endif %}
+
+
+{% endblock content %}

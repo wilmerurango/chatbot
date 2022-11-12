@@ -8,7 +8,12 @@
 
 <div class="card border rounded m-3 p-3 shadow-sm bg-light">
     <form method="post">
-        <h2>Crear Curso</h2>
+        {% if accion == "crear" %}
+            <h2>Crear Curso</h2>
+        {% else %}
+            <h2>Editar Curso</h2>
+        {% endif %}
+        
         {% csrf_token %}
         <div class="row">
             <div class="col-lg-6">
@@ -42,12 +47,17 @@
         </div>
         
 
-        <button type="submit" class="btn btn-success">Crear</button>
+        {% if accion == "crear" %}
+            <button type="submit" class="btn btn-success">Crear</button>
+        {% else %}
+        <button type="submit" class="btn btn-success">Actualizar</button>
+        <a class="btn btn-danger" href="{% url 'Create_Curso' %}">Cancelar</a>
+        {% endif %}
     </form>
 
 </div>
 
-
+{% if accion == "crear" %}
 <!-- tabla -->
 <div class="card border rounded m-3 p-3 shadow-sm bg-light">
 
@@ -81,7 +91,9 @@
                                 <th>{{ curso.fecha_final}}</th>
                                 <th>{{ curso.descripcion}}</th>
                                 <th>{{ curso.estado}}</th>
-                                <th></th>
+                                <th> 
+                                    <a  class="btn btn-primary"  href="{% url 'Update_Curso' curso.id %}">Editar</a> 
+                                </th>
                             </tr>
                         {% endfor %}
                     {% endif %}
@@ -93,6 +105,6 @@
 
 </div>
 
-
+{% endif %}
 
 {% endblock content %}

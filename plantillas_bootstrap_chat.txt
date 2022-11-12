@@ -1,2 +1,0 @@
-plantillas de chat bootstrap
-https://freefrontend.com/bootstrap-chats/

@@ -1,10 +1,21 @@
 {% extends 'base/index.html' %}
 
+
 {% block content %}
 
+
+
+
 <div class="card border rounded m-3 p-3 shadow-sm bg-light">
-    <form method="post">
-        <h2>Armar Curso</h2>
+    <form method="post" id = "subtemaform" data-subtema-url="{% url 'list_subtema' %}" data-subSubtema-url="{% url 'list_subSubtema' %}">
+        
+        {% if accion == "crear" %}
+            <h2>Armar Curso</h2>
+        {% else %}
+            <h2>Editar Curso</h2>
+        {% endif %}
+        
+        
         {% csrf_token %}
         <div class="row">
             <div class="col-lg-6">
@@ -17,14 +28,9 @@
                     {{form.tema}}
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Subtema</label>
-                    {{form.subtema}}
+                    <label for="exampleInputEmail1" class="form-label">Orden</label>
+                    {{form.orden}}
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">SubSubtema</label>
-                    {{form.subSubtema}}
-                </div>
-
 
             </div>
 
@@ -37,19 +43,124 @@
                     <label for="exampleInputEmail1" class="form-label">Fecha Fin</label>
                     {{form.fecha_f}}
                 </div>
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Orden</label>
-                    {{form.orden}}
-                </div>
+                
 
             </div>
 
         </div>
 
-        <button type="submit" class="btn btn-success">Crear</button>
+        {% if accion == "crear" %}
+            <button type="submit" class="btn btn-success">Crear</button>
+        {% else %}
+            <button type="submit" class="btn btn-success">Actualizar</button>
+            <a class="btn btn-danger" href="{% url 'Create_CurTemStem' %}">Cancelar</a>
+        {% endif %}
+
     </form>
 
+   
+                    
+    <script>
+        $("#id_tema").change(function () {
+            var url = $("#subtemaform").attr("data-subtema-url");  // get the url of the `load_cities` view
+            var temaId = $(this).val();  // get the selected country ID from the HTML input
+
+            $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'tema': temaId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_subtema").html(data);  // replace the contents of the city input with the data that came from the server
+            }
+            });
+        });
+
+        // $("#id_subtema").change(function () {
+        //     var url = $("#subtemaform").attr("data-subSubtema-url");  // get the url of the `load_cities` view
+        //     var subtemaId = $(this).val();  // get the selected country ID from the HTML input
+
+        //     $.ajax({                       // initialize an AJAX request
+        //     url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+        //     data: {
+        //         'subtema': subtemaId       // add the country id to the GET parameters
+        //     },
+        //     success: function (data) {   // `data` is the return of the `load_cities` view function
+        //         $("#id_subSubtema").html(data);  // replace the contents of the city input with the data that came from the server
+        //     }
+        //     });
+        // });
+
+    </script>
+
 </div>
+
+{% if accion == "crear" %}
+
+
+
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Armar Curso
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Curso</th>
+                        <th>Tema</th>
+                        <th>Fecha inicial</th>
+                        <th>Fecha Final</th>
+                        <th>Orden</th>
+                        <!-- <th>Fecha Inicio</th> -->
+                        <!-- <th>Fecha Fin</th> -->
+                        <th>Acción</th>
+                        
+
+                    </tr>
+                </thead>
+                
+                <tbody>
+                   
+                        {% for curtemstem in curtemstems %}
+                            <tr>
+                                <th>{{ curtemstem.id}}</th>
+                                <th>{{ curtemstem.curso.nombre_curso}}</th>
+                                <th>{{ curtemstem.tema.nombre_tema}}</th>
+                                <th>{{ curtemstem.fecha_i}}</th>
+                                <th>{{ curtemstem.fecha_f}}</th>
+                                <th>{{ curtemstem.orden}}</th>
+                                <!-- <th>{{ curtemstem.fecha_i}}</th>
+                                <th>{{ curtemstem.fecha_f}}</th> -->
+                                <th></th>
+                            </tr>
+                        {% endfor %}
+
+                  
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+{% endif %}
+
+{% endblock content %}
+
+<!-- <a class="btn btn-primary" href="{% url 'Update_CurTemStem' curtemstem.id %}">Editar</a> -->
+
 
 
 <!-- tabla -->
@@ -64,34 +175,36 @@
             <table id="datatablesSimple">
                 <thead>
                     <tr>
-                        <th>Id Tema</th>
+                        <th>Id</th>
                         <th>Curso</th>
                         <th>Tema</th>
                         <th>Subtema</th>
-                        <th>Orden</th>
-                        <th>Fecha Inicio</th>
-                        <th>Fecha Fin</th>
+                        <th>DetalleSubtema</th>
+                        <!-- <th>Orden</th> -->
+                        <!-- <th>Fecha Inicio</th> -->
+                        <!-- <th>Fecha Fin</th> -->
                         <th>Acción</th>
-                        
-
+                    
                     </tr>
                 </thead>
                 
                 <tbody>
-                    {% if curtemstems %}
-                        {% for curtemstem in curtemstems %}
+                   
+                        {% for ctsd in ctsds %}
                             <tr>
-                                <th>{{ curtemstem.id}}</th>
-                                <th>{{ curtemstem.curso.nombre_curso}}</th>
-                                <th>{{ curtemstem.tema.nombre_tema}}</th>
-                                <th>{{ curtemstem.subtema.nombre}}</th>
-                                <th>{{ curtemstem.orden}}</th>
+                                <th>{{ ctsd.id}}</th>
+                                <th>{{ ctsd.cts.curTemStem.curso.nombre_curso}}</th>
+                                <th>{{ ctsd.cts.curTemStem.tema.nombre_tema}}</th>
+                                <th>{{ ctsd.cts.subtema.nombre}}</th>
+                                <th>{{ ctsd.subSubtema.nombre}}</th>
+                                <!-- <th>{{ curtemstem.orden}}</th>
                                 <th>{{ curtemstem.fecha_i}}</th>
-                                <th>{{ curtemstem.fecha_f}}</th>
+                                <th>{{ curtemstem.fecha_f}}</th> -->
                                 <th></th>
                             </tr>
                         {% endfor %}
-                    {% endif %}
+
+                  
                    
                 </tbody>
             </table>
@@ -100,5 +213,3 @@
 
 </div>
 
-
-{% endblock content %}

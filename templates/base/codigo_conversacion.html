@@ -1,0 +1,61 @@
+{% for msj in conversacions %}
+
+                                    {% if msj.user.tipo_user == "Bot" %}
+
+                                        {% if msj.tipo_mensje == "Lista" %}
+                                            <li class="clearfix">
+                                
+                                                <div class="message my-message" style="max-width: 90%;">
+                                                    <h5>titulo 5</h5>
+                                                    <span>
+                                                        <ul>
+                                                            {% for list in w %}
+                                                            <li>{{ list }}</li>
+                                                            {% endfor %}
+                                                        </ul>
+
+                                                    </span>
+                                                    
+                                                    
+                                                    <br>
+                                                    <span class="message-time" style="color: rgb(158, 159, 159);">
+                                                        {{ msj.fecha }}
+                                                        
+                                                    </span>
+                                                </div> 
+                                                                                
+                                            </li> 
+                                        {% elif msj.tipo_mensje == "Texto" %}
+                                            <li class="clearfix">
+                                    
+                                                <div class="message my-message" style="max-width: 90%;">
+                                                    <span>{{ msj.mensaje}}</span>
+                                                    <br>
+                                                    <span class="message-time" style="color: rgb(158, 159, 159);">
+                                                        {{ msj.fecha }}
+                                                        
+                                                    </span>
+                                                </div> 
+                                                                                
+                                            </li> 
+
+                                        {% endif %}
+
+                                    {% else %}
+                                        
+                                        <li class="clearfix">
+        
+                                            <div class="message other-message float-right" style="max-width: 90%;"> 
+                                                <span>{{ msj.mensaje}}</span> 
+                                                <br>
+                                                <span class="message-time" style="color: rgb(158, 159, 159);">
+                                                    {{ msj.fecha }}
+                                                </span>
+                                            </div>
+                                            
+                                        </li>
+                                    {% endif %}
+
+
+                                {% endfor %}
+                                

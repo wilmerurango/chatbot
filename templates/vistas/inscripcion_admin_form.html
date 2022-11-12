@@ -4,7 +4,13 @@
 
 <div class="card border rounded m-3 p-3 shadow-sm bg-light">
     <form method="post">
-        <h2>Crear Inscripción</h2>
+        
+        {% if accion == "crear" %}
+            <h2>Crear Inscripción</h2>
+        {% else %}
+            <h2>Editar Inscripción</h2>
+        {% endif %}
+
         {% csrf_token %}
         <div class="row">
             <div class="col-lg-6">
@@ -28,58 +34,79 @@
             </div>
 
             <div class="col-lg-6">
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Nota Definitiva</label>
+                    {{form.nota_def}}
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Porcentaje Progreso</label>
+                    {{form.porcentaje_prog}}
+                </div>
 
             </div>
 
         </div>
 
-        <button type="submit" class="btn btn-success">Crear</button>
+        {% if accion == "crear" %}
+            <button type="submit" class="btn btn-success">Crear</button>
+        {% else %}
+            <button type="submit" class="btn btn-success">Actualizar</button>
+            <a class="btn btn-danger" href="{% url 'Create_Inscripcion_Admin' %}">Cancelar</a>
+
+        {% endif %}
     </form>
 
 </div>
 
+{% if accion == "crear" %}
+    <!-- tabla -->
+    <div class="card border rounded m-3 p-3 shadow-sm bg-light">
 
-<!-- tabla -->
-<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Armar Curso
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Id Inscripción</th>
+                            <th>Usuario</th>
+                            <th>Curso</th>
+                            <th>Estado</th>
+                            <th>Nota</th>
+                            <th>% Progreso</th>
+                            <th>Acción</th>
+                            
 
-    <div class="card mb-4">
-        <div class="card-header">
-            <i class="fas fa-table me-1"></i>
-            Armar Curso
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% if inscipcions %}
+                            {% for inscipcion in inscipcions %}
+                                <tr>
+                                    <th>{{ inscipcion.id}}</th>
+                                    <th>{{ inscipcion.user.username}}</th>
+                                    <th>{{ inscipcion.curso.nombre_curso}}</th>
+                                    <th>{{ inscipcion.estado}}</th>
+                                    <th>{{ inscipcion.nota_def}}</th>
+                                    <th>{{ inscipcion.porcentaje_prog}}</th>
+                                    <th>
+                                        <a  class="btn btn-primary"  href="{% url 'Update_Inscripcion_Admin' inscipcion.id %}">Editar</a> 
+                                    </th>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="card-body">
-            <table id="datatablesSimple">
-                <thead>
-                    <tr>
-                        <th>Id Inscripción</th>
-                        <th>Usuario</th>
-                        <th>Curso</th>
-                        <th>Estado</th>
-                        <th>Acción</th>
-                        
 
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    {% if inscipcions %}
-                        {% for inscipcion in inscipcions %}
-                            <tr>
-                                <th>{{ inscipcion.id}}</th>
-                                <th>{{ inscipcion.user.username}}</th>
-                                <th>{{ inscipcion.curso.nombre_curso}}</th>
-                                <th>{{ inscipcion.estado}}</th>
-                                <th></th>
-                            </tr>
-                        {% endfor %}
-                    {% endif %}
-                   
-                </tbody>
-            </table>
-        </div>
     </div>
-
-</div>
-
+{% endif %}
 
 {% endblock content %}

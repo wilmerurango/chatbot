@@ -1,0 +1,115 @@
+{% extends 'base/index.html' %}
+
+{% block content %}
+
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+    <form method="post" id="form_ctsd" data-ctsd-url="{% url 'list_ctsd' %}" > 
+        
+
+        {% if accion == "crear" %}
+            <h2>Crear Curso-Tema-Subtema-Detalle</h2>
+        {% else %}
+            <h2>Editar Curso-Tema-Subtema-Detalle</h2>
+        {% endif %}
+
+
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-lg-6">
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Subtema</label>
+                    {{form.cts}}
+                </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Detalle Subtema</label>
+                    {{form.subSubtema}}
+                </div>
+                
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Orden</label>
+                    {{form.orden}}
+                </div>
+                
+
+            </div>
+
+        </div>
+
+        {% if accion == "crear" %}
+            <button type="submit" class="btn btn-success">Crear</button>
+        {% else %}
+            <button type="submit" class="btn btn-success">Actualizar</button>
+            <a class="btn btn-danger" href="{% url 'Create_Ctsd' %}">Cancelar</a>
+
+        {% endif %}
+    </form>
+
+    <script>
+        $("#id_cts").change(function () {
+            var url = $("#form_ctsd").attr("data-ctsd-url");  // get the url of the `load_cities` view
+            var ctsId = $(this).val();  // get the selected country ID from the HTML input
+
+            $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'cts': ctsId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_subSubtema").html(data);  // replace the contents of the city input with the data that came from the server
+            }
+            });
+        });
+
+    </script>
+
+</div>
+
+
+{% if accion == "crear" %}
+    <!-- tabla -->
+    <div class="card border rounded m-3 p-3 shadow-sm bg-light">
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Curso-Tema-Subtema-Detalle
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Subtena</th>
+                            <th>Detalle de Subtena</th>
+                            <th>Orden</th>
+                            <th>Acción</th>
+
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% if Ctsds %}
+                            {% for Ctsd in Ctsds %}
+                                <tr>
+                                    <th>{{ Ctsd.id }}</th>
+                                    <th>{{ Ctsd.cts.subtema.nombre }}</th>
+                                    <th>{{ Ctsd.subSubtema.nombre }}</th>
+                                    <th>{{ Ctsd.orden }}</th>
+                                    <th>
+                                        <a  class="btn btn-primary"  href="{% url 'Update_Ctsd' Ctsd.id %}">Editar</a> 
+                                    </th>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+{% endif %}
+
+{% endblock content %}

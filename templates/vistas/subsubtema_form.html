@@ -3,11 +3,25 @@
 {% block content %}
 
 <div class="card border rounded m-3 p-3 shadow-sm bg-light">
-    <form method="post">
-        <h2>Crear Tema de nivel tres</h2>
+    <form method="post" enctype="multipart/form-data"  id="subtemaform" data-subtema-url="{% url 'list_subtema' %}" >
+        
+        {% if accion == "crear" %}
+            <h2>Crear Detalle de SubTema</h2>
+        {% else %}
+            <h2>Editar Detalle de SubTema</h2>
+        {% endif %}
+
+
+        
         {% csrf_token %}
         <div class="row">
             <div class="col-lg-6">
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Tema</label>
+                    {{form.tema}}
+                </div>
+
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">SubTema</label>
                     {{form.subtema}}
@@ -16,14 +30,31 @@
                     <label for="exampleInputEmail1" class="form-label">Nombre subsubtema</label>
                     {{form.nombre}}
                 </div>
+
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label">Recurso</label>
+                    {{form.recurso}}
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"></label>
+                    {{form.recurso_link_video}}
+                </div>
+                
+                <div class="mb-3">
+                    <label for="exampleInputEmail1" class="form-label"></label>
+                    {{form.recurso_archivo}}
+                </div>
+                
+               
+
+            </div>
+
+            <div class="col-lg-6">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Estado del subsubtema</label>
                     {{form.estado}}
                 </div>
 
-            </div>
-
-            <div class="col-lg-6">
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Descripción del Tema</label>
                     {{form.descripcion}}
@@ -32,20 +63,47 @@
             </div>
 
         </div>
-
-        <button type="submit" class="btn btn-success">Crear</button>
+        {% if accion == "crear" %}
+            <button type="submit" class="btn btn-success">Crear</button>
+        {% else %}
+        <button type="submit" class="btn btn-success">Actualizar</button>
+        <a class="btn btn-danger" href="{% url 'Create_Subtema' %}">Cancelar</a>
+        {% endif %}
     </form>
+
+    <script>
+        $("#id_tema").change(function () {
+            var url = $("#subtemaform").attr("data-subtema-url");  // get the url of the `load_cities` view
+            var temaId = $(this).val();  // get the selected country ID from the HTML input
+
+            $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+                'tema': temaId       // add the country id to the GET parameters
+            },
+            success: function (data) {   // `data` is the return of the `load_cities` view function
+                $("#id_subtema").html(data);  // replace the contents of the city input with the data that came from the server
+            }
+            });
+        });
+
+        
+
+
+    </script>
+
+    
 
 </div>
 
-
+{% if accion == "crear" %}
 <!-- tabla -->
 <div class="card border rounded m-3 p-3 shadow-sm bg-light">
 
     <div class="card mb-4">
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
-            Temas de Nivel Tres creados
+            Detalles de SubTemas creados
         </div>
         <div class="card-body">
             <table id="datatablesSimple">
@@ -72,7 +130,9 @@
                                 <th>{{ subtema.nombre }}</th>
                                 <th>{{ subtema.estado }}</th>
                                 <th>{{ subtema.descripcion }}</th>
-                                <th></th>
+                                <th>
+                                    <a  class="btn btn-primary"  href="{% url 'Update_SubSubtema' subtema.id %}">Editar</a> 
+                                </th>
                             </tr>
                         {% endfor %}
                     {% endif %}
@@ -83,6 +143,55 @@
     </div>
 
 </div>
-
+{% endif %}
 
 {% endblock content %}
+
+
+
+<script type="text/javascript">
+
+    function enviar_mensaje(){
+            var hoy = new Date();
+            var hora = hoy.getHours() + ':' + hoy.getMinutes() + ':' + hoy.getSeconds();
+
+            var caja_conversacion = document.getElementById("content_conversacion");
+            var mensaje = document.getElementById("comment").value;
+            var caja_mensaje = document.getElementById("comment");
+
+            var c_li = document.createElement("li");
+            c_li.className += "clearfix";
+            
+            var div1 = document.createElement("div");
+            div1.className += "message other-message float-right";
+            div1.style = "max-width: 90%;"
+
+            var spann = document.createElement("span");
+            spann.textContent = mensaje
+
+            var brr = document.createElement("br");
+
+            var spann2 = document.createElement("span");
+            spann2.className += "message-time"
+            spann2.style = "color: rgb(158, 159, 159);"
+            spann2.textContent = "fecha hora"
+
+
+            div1.appendChild(spann)
+            div1.appendChild(brr)
+            div1.appendChild(spann2)
+            c_li.appendChild(div1)
+            
+            
+            // console.log(c_li)
+            if(mensaje != ""){
+                caja_conversacion.appendChild(c_li)
+                caja_mensaje.value="";
+            };
+            
+            
+
+  
+        }
+
+</script>

@@ -4,7 +4,13 @@
 
 <div class="card border rounded m-3 p-3 shadow-sm bg-light">
     <form method="post">
-        <h2>Crear Actividad</h2>
+
+        {% if accion == "crear" %}
+            <h2>Crear Actividad</h2>
+        {% else %}
+            <h2>Editar Actividad</h2>
+        {% endif %}
+        
         {% csrf_token %}
         <div class="row">
             <div class="col-lg-6">
@@ -15,7 +21,7 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">ipo de Actividad</label>
+                    <label for="exampleInputEmail1" class="form-label">Tipo de Actividad</label>
                     {{form.tipoActividad}}
                 </div>
 
@@ -54,13 +60,71 @@
 
         </div>
 
+        {% if accion == "crear" %}
         <button type="submit" class="btn btn-success">Crear</button>
+        {% else %}
+        <button type="submit" class="btn btn-success">Actualizar</button>
+        <a class="btn btn-danger" href="{% url 'Create_Actividad' %}">Cancelar</a>
+        {% endif %}
+
+        
     </form>
 
 </div>
 
-<script>
-    const picker = new tempusdominus.TempusDominus(document.getElementById('id_fecha_i'));
-</script>
+
+{% if accion == "crear" %}
+<!-- tabla -->
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Actividades creadas
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>CurTemStem</th>
+                        <th>Tipo de Actividad</th>
+                        <th>Nombre de la Actividad</th>
+                        <th>Descripción de La Actividad</th>
+                        <th>Estado de la Actividad</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Fin</th>
+                        <th>Acción</th>
+
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% if actividads %}
+                        {% for actividad in actividads %}
+                            <tr>
+                                <th>{{ actividad.id }}</th>
+                                <th>{{ actividad.curTemStem }}</th>
+                                <th>{{ actividad.tipoActividad.nombre_tipo_actividad }}</th>
+                                <th>{{ actividad.nombre }}</th>
+                                <th>{{ actividad.descripcion }}</th>
+                                <th>{{ actividad.estado }}</th>
+                                <th>{{ actividad.fecha_i }}</th>
+                                <th>{{ actividad.fecha_f }}</th>
+                                <th>
+                                    <a  class="btn btn-primary"  href="{% url 'Update_Actividad' actividad.id %}">Editar</a> 
+                                </th>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endif %}
+
 
 {% endblock content %}

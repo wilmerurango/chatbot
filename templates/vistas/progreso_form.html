@@ -4,7 +4,15 @@
 
 <div class="card border rounded m-3 p-3 shadow-sm bg-light">
     <form method="post">
-        <h2>Crear Progreso</h2>
+        
+
+        {% if accion == "crear" %}
+            <h2>Crear Progreso</h2>
+        {% else %}
+            <h2>Editar Progreso</h2>
+        {% endif %}
+
+
         {% csrf_token %}
         <div class="row">
             <div class="col-lg-6">
@@ -37,13 +45,63 @@
 
         </div>
 
-        <button type="submit" class="btn btn-success">Crear</button>
+        {% if accion == "crear" %}
+            <button type="submit" class="btn btn-success">Crear</button>
+        {% else %}
+            <button type="submit" class="btn btn-success">Actualizar</button>
+            <a class="btn btn-danger" href="{% url 'Create_Progreso' %}">Cancelar</a>
+
+        {% endif %}
     </form>
 
 </div>
 
-<script>
-    const picker = new tempusdominus.TempusDominus(document.getElementById('id_fecha_i'));
-</script>
+
+{% if accion == "crear" %}
+    <!-- tabla -->
+    <div class="card border rounded m-3 p-3 shadow-sm bg-light">
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Progresos
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Inscripcion</th>
+                            <th>CurTemStem</th>
+                            <th>Estado</th>
+                            <th>Nota</th>
+                            <th>Acción</th>
+
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% if progresos %}
+                            {% for progreso in progresos %}
+                                <tr>
+                                    <th>{{ progreso.id }}</th>
+                                    <th>{{ progreso.inscripcion }}</th>
+                                    <th>{{ progreso.curTemStem }}</th>
+                                    <th>{{ progreso.estado }}</th>
+                                    <th>{{ progreso.nota }}</th>
+                                    <th>
+                                        <a  class="btn btn-primary"  href="{% url 'Update_Progreso' progreso.id %}">Editar</a> 
+                                    </th>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+{% endif %}
 
 {% endblock content %}

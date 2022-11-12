@@ -17,7 +17,7 @@ class UserAdmin(UserAdmin):
 
     fieldsets = UserAdmin.fieldsets + (
             (None, {'fields': (
-                'usuario_bot',
+                'tipo_user',
                 'colegio',
                 'direccion',
                 'estado',#este es por defecto
@@ -33,11 +33,17 @@ admin.site.register(Curso)
 admin.site.register(TipoActividad)
 admin.site.register(Tema)
 admin.site.register(Subtema)
+admin.site.register(SubSubtema)
 admin.site.register(CurTemStem)
 admin.site.register(Actividad)
-admin.site.register(ActividadDet)
-admin.site.register(ActDetOpt)
+admin.site.register(Act_Pregunta)
+admin.site.register(Act_Pregunta_Opt)
 admin.site.register(Inscripcion)
-admin.site.register(Progreso)
-admin.site.register(ProgresoDet)
+admin.site.register(Prog_Acti)
+admin.site.register(Prog_Preg)
+admin.site.register(Prog_Tem)
+admin.site.register(Prog_Stem)
+admin.site.register(Prog_Sstem)
+admin.site.register(Cts)
+admin.site.register(Ctsd)
 

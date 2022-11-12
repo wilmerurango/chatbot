@@ -4,7 +4,13 @@
 
 <div class="card border rounded m-3 p-3 shadow-sm bg-light">
     <form method="post">
-        <h2>Crear Progreso Detalle</h2>
+        
+        {% if accion == "crear" %}
+            <h2>Crear Progreso Detalle</h2>
+        {% else %}
+            <h2>Editar Progreso Detalle</h2>
+        {% endif %}
+
         {% csrf_token %}
         <div class="row">
             <div class="col-lg-6">
@@ -37,13 +43,62 @@
 
         </div>
 
-        <button type="submit" class="btn btn-success">Crear</button>
+        {% if accion == "crear" %}
+            <button type="submit" class="btn btn-success">Crear</button>
+        {% else %}
+            <button type="submit" class="btn btn-success">Actualizar</button>
+            <a class="btn btn-danger" href="{% url 'Create_ProgresoDet' %}">Cancelar</a>
+
+        {% endif %}
     </form>
 
 </div>
 
-<script>
-    const picker = new tempusdominus.TempusDominus(document.getElementById('id_fecha_i'));
-</script>
+{% if accion == "crear" %}
+    <!-- tabla -->
+    <div class="card border rounded m-3 p-3 shadow-sm bg-light">
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Detalle de los Progresos
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Progreso</th>
+                            <th>ActDetOpt</th>
+                            <th>Estado</th>
+                            <th>Nota</th>
+                            <th>Acción</th>
+
+                        </tr>
+                    </thead>
+                    
+                    <tbody>
+                        {% if ProgresoDets %}
+                            {% for ProgresoDet in ProgresoDets %}
+                                <tr>
+                                    <th>{{ ProgresoDet.id }}</th>
+                                    <th>{{ ProgresoDet.progreso }}</th>
+                                    <th>{{ ProgresoDet.actDetOpt }}</th>
+                                    <th>{{ ProgresoDet.estado }}</th>
+                                    <th>{{ ProgresoDet.nota }}</th>
+                                    <th>
+                                        <a  class="btn btn-primary"  href="{% url 'Update_ProgresoDet' ProgresoDet.id %}">Editar</a> 
+                                    </th>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+{% endif %}
 
 {% endblock content %}

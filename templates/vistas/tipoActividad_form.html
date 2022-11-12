@@ -4,7 +4,12 @@
 
 <div class="m-3 p-3 ">
     <form method="post">
-        <h2>Crear Tipo Actividad</h2>
+        {% if accion == "crear" %}
+            <h2>Crear Tipo Actividad</h2>
+        {% else %}
+            <h2>Editar Tipo Actividad</h2>
+        {% endif %}
+        
         {% csrf_token %}
         <div class="row ">
             <div class="col-lg-6 card border rounded m-3 p-3 shadow-sm bg-light">
@@ -27,10 +32,61 @@
 
         </div>
 
-        <button type="submit" class="btn btn-success">Crear</button>
+        {% if accion == "crear" %}
+            <button type="submit" class="btn btn-success">Crear</button>
+        {% else %}
+        <button type="submit" class="btn btn-success">Actualizar</button>
+        <a class="btn btn-danger" href="{% url 'Create_TipoActividad' %}">Cancelar</a>
+        {% endif %}
     </form>
 
 </div>
+
+
+
+
+{% if accion == "crear" %}
+<!-- tabla -->
+<div class="card border rounded m-3 p-3 shadow-sm bg-light">
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Tipo de Actividad Creadas
+        </div>
+        <div class="card-body">
+            <table id="datatablesSimple">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Tipo de Actividad</th>
+                        <th>Fecha Creación</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    {% if tipoActividads %}
+                        {% for tipoActividad in tipoActividads %}
+                            <tr>
+                                <th>{{ tipoActividad.id}}</th>
+                                <th>{{ tipoActividad.nombre_tipo_actividad}}</th>
+                                <th>{{ tipoActividad.fecha_creacion}}</th>
+                                <th>{{ tipoActividad.estado}}</th>
+                                <th><a class="btn btn-primary" href="{% url 'Update_TipoActividad' tipoActividad.id %}">Editar</a></th>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                   
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+{% endif %}
 
 
 {% endblock content %}

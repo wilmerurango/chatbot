@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Login V18</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->	
+	<link rel="icon" type="image/png" href="{% static 'login/images/favicon.ico' %}"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/bootstrap.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/font-awesome.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/icon-font.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/animate.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/hamburgers.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/animsition.min.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/select2.min.css' %}">
+<!--===============================================================================================-->	
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/daterangepicker.css' %}">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/util.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'login/css/main.css' %}">
+<!--===============================================================================================-->
+</head>
+<body>
+	
+	<div class="limiter " >
+
+		<div class="row">
+			<div class="row col-lg-6"  >
+				<form class="login100-form validate-form" method="post">
+                    {% csrf_token %}
+
+					<span class="login100-form-title p-b-43 text-success">
+						LOGIN
+					</span>
+					
+					
+					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
+						<!-- <input class="input100" type="text" name="email"> -->
+                        <input type="text" id="id_username" name = "username" class="input100">
+
+                        
+						<span class="focus-input100"></span>
+						<span class="label-input100">Usuario</span>
+					</div>
+					
+					
+					<div class="wrap-input100 validate-input" data-validate="Password is required">
+						<!-- <input class="input100" type="password" name="pass"> -->
+
+                        <input type="password" id="id_password" name="password" class="input100">
+
+						<span class="focus-input100"></span>
+						<span class="label-input100">Password</span>
+					</div>
+
+					<div class="flex-sb-m w-full p-t-3 p-b-32">
+						<div class="contact100-form-checkbox">
+							<!-- <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
+							<label class="label-checkbox100" for="ckb1">
+								Remember me
+							</label> -->
+						</div>
+
+						<div>
+							<a href="#" class="txt1">
+								¿Olvidaste tu contraseña?
+							</a>
+						</div>
+					</div>
+			
+
+
+                    <div class="text-center text-lg-start mt-4 pt-2">
+                        <input class="btn btn-success  btn-lg" type="submit" style="padding-left: 2.5rem; padding-right: 2.5rem;" value="Login">
+                        <!-- <button type="submit" class="btn btn-success btn-lg"
+                          style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button> -->
+                        <p class="small fw-bold mt-2 pt-1 mb-0">¿Aun no tines una cuenta? <a href="{% url 'register' %}"
+                            class="link-success">Register</a></p>
+                      </div>
+
+
+				</form>
+
+				
+			</div>
+
+			<div class="row col-lg-6 m-0 p-0">
+				<center>
+					<!-- <div class="border-success"> -->
+						<img src="{% static 'dist/img/login2.jpg'%}" alt="" height="600vh">
+						<!-- </div> -->
+				</center>
+				
+			</div>
+
+			
+		</div>
+	</div>
+	
+	
+
+	
+	
+<!--===============================================================================================-->
+	<script src="{% static 'login/js/jquery-3.2.1.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'login/js/animsition.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'login/js/popper.js' %}"></script>
+	<script src="{% static 'login/js/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'login/js/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'login/js/moment.min.js' %}"></script>
+	<script src="{% static 'login/js/daterangepicker.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'login/js/countdowntime.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'login/js/main.js' %}"></script>
+
+</body>
+</html>
