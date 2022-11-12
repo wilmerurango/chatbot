@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-9)bcc#vu@@i83(iqihoxzid9g0%7nv2c#@)%ig^1)xixty7+#c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['tibochatbot.herokuapp.com','https://tibochatbot.herokuapp.com/admin','191.156.251.100']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
