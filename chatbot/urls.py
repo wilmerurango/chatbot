@@ -104,5 +104,4 @@ urlpatterns = [
     path('list_ctsd/', list_ctsd, name="list_ctsd"),
 
     path('accounts/',include('django.contrib.auth.urls')),
-]
-urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) 
