@@ -38,7 +38,7 @@ urlpatterns = [
 
     path('index/', login_required(index), name="index"),
 
-    path('',LoginView.as_view(), name ='login'),
+    path('/',LoginView.as_view(), name ='login'),
     path('logout/',LogoutView.as_view(), name ='logout'),
     path('register', Register.as_view(), name="register"),
 
