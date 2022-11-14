@@ -113,7 +113,7 @@ class Subtema(models.Model):
     opcion_recurso = [(link,"Enlace"),(archivo,"Archivo"),(video,"Video")]
 
     tema = models.ForeignKey(Tema, verbose_name='Tema', null=True, on_delete=models.PROTECT)
-    nombre = models.CharField('Nombre Subtema', max_length=50, blank=False, null=True)
+    nombre = models.CharField('Nombre Subtema', max_length=100, blank=False, null=True)
     descripcion = models.TextField('Descripción Subtema', null=True)
     estado = models.CharField('Estado del Subtema', max_length=10, choices=opcion_, default=activo, null=True)
 
@@ -139,7 +139,7 @@ class SubSubtema(models.Model):
 
     tema = models.ForeignKey(Tema, verbose_name='Tema', null=True, on_delete=models.PROTECT)
     subtema = models.ForeignKey(Subtema, verbose_name='Subtema', null=True, on_delete=models.PROTECT)
-    nombre = models.CharField('Nombre tema nivel tres', max_length=50, blank=False, null=True)
+    nombre = models.CharField('Nombre tema nivel tres', max_length=100, blank=False, null=True)
     descripcion = models.TextField('Descripción Tema', null=True)
     estado = models.CharField('Estado del tema', max_length=10, choices=opcion_, default=activo, null=True)
 
