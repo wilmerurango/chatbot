@@ -21,7 +21,7 @@
 
         
     </head>
-    <body class="sb-nav-fixed" onload="form_tipo_recurso();">
+    <body class="sb-nav-fixed" ><!-- onload="form_tipo_recurso();"-->
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="{% url 'index' %}">Admin TIBO</a>
@@ -211,27 +211,27 @@
         </script>
 
         <script>
-            $("#id_recurso").change(function(){
+            // $("#id_recurso").change(function(){
 
-                var recurso_id = $(this).val();
-                var recurso_link_video = document.getElementById("id_recurso_link_video");
-                var recurso_archivo = document.getElementById("id_recurso_archivo");
+            //     var recurso_id = $(this).val();
+            //     var recurso_link_video = document.getElementById("id_recurso_link_video");
+            //     var recurso_archivo = document.getElementById("id_recurso_archivo");
 
-                // document.getElementById(id).style.visibility = "visible";
+            //     // document.getElementById(id).style.visibility = "visible";
 
-                switch (recurso_id) {
-                    case 'Archivo':
-                        recurso_archivo.style.visibility = "visible";
-                        recurso_link_video.style.visibility = "hidden";
-                        break;
+            //     switch (recurso_id) {
+            //         case 'Archivo':
+            //             recurso_archivo.style.visibility = "visible";
+            //             recurso_link_video.style.visibility = "hidden";
+            //             break;
 
-                    default:
-                        recurso_link_video.style.visibility = "visible";
-                        recurso_archivo.style.visibility = "hidden";
-                        break;
-                };
+            //         default:
+            //             recurso_link_video.style.visibility = "visible";
+            //             recurso_archivo.style.visibility = "hidden";
+            //             break;
+            //     };
 
-            });
+            // });
 
 
             function form_tipo_recurso(){
