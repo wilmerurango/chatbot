@@ -116,9 +116,9 @@ class TemaForm(forms.ModelForm):
         self.fields['descripcion'].widget.attrs.update({  
                 'style': 'height: 438px; '  
             })
-        # self.fields['recurso_link_video'].widget.attrs.update({  
-        #         'style': 'height: 95px; visibility: hidden;'  
-        #     })
+        self.fields['recurso_link_video'].widget.attrs.update({  
+                'style': 'height: 95px; '  #visibility: hidden;
+            })
         # self.fields['recurso_archivo'].widget.attrs.update({  
         #         'style': 'visibility: hidden;'  
         #     })
@@ -144,9 +144,9 @@ class SubtemaForm(forms.ModelForm):
         self.fields['descripcion'].widget.attrs.update({  
                         'style': 'height: 503px;'
                     })
-        # self.fields['recurso_link_video'].widget.attrs.update({  
-        #         'style': 'height: 74px; visibility: hidden;'  
-        #     })
+        self.fields['recurso_link_video'].widget.attrs.update({  
+                'style': 'height: 74px; ' #visibility: hidden;
+            })
         # self.fields['recurso_archivo'].widget.attrs.update({  
         #         'style': 'visibility: hidden;'  
         #     })
@@ -173,9 +173,9 @@ class SubSubtemaForm(forms.ModelForm):
         self.fields['descripcion'].widget.attrs.update({  
                         'style': 'height: 418px;'  
                     })
-        # self.fields['recurso_link_video'].widget.attrs.update({  
-        #         'style': 'height: 74px; visibility: hidden;'  
-        #     })
+        self.fields['recurso_link_video'].widget.attrs.update({  
+                'style': 'height: 74px;'#visibility: hidden;
+            })
         # self.fields['recurso_archivo'].widget.attrs.update({  
         #         'style': 'visibility: hidden;'  
         #     })
