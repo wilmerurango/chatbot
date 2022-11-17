@@ -259,7 +259,7 @@ def crear_inst_prog_tem(inscrip,tema_curso_current):
     elif recur == 'Enlace':
         ruta_recur = tema_curso_current.tema.recurso_link_video
     elif recur == 'Video':
-        ruta_recur = str(tema_curso_current.tema.recurso_link_video)+';'+'/media/'+ str(tema_curso_current.tema.recurso_archivo)
+        ruta_recur = str(tema_curso_current.tema.recurso_link_video)+'**'+'/media/'+ str(tema_curso_current.tema.recurso_archivo)
     else:
         ruta_recur = ''
 
@@ -368,7 +368,7 @@ def ConsulSubTema(request, id_):
         elif recur == 'Enlace':
             ruta_recur = subtema_curso_current.subtema.recurso_link_video
         elif recur == 'Video':
-            ruta_recur = str(subtema_curso_current.subtema.recurso_link_video)+';'+'/media/'+ str(subtema_curso_current.subtema.recurso_archivo)
+            ruta_recur = str(subtema_curso_current.subtema.recurso_link_video)+'**'+'/media/'+ str(subtema_curso_current.subtema.recurso_archivo)
         else:
             ruta_recur = ''
 
@@ -620,7 +620,7 @@ def ConsulDetSubtema(request, pk):
         elif recur == 'Enlace':
             ruta_recur = det_subtema_curso_current.subSubtema.recurso_link_video
         elif recur == 'Video':
-            ruta_recur = str(det_subtema_curso_current.subSubtema.recurso_link_video)+';'+'/media/'+ str(det_subtema_curso_current.subSubtema.recurso_archivo)
+            ruta_recur = str(det_subtema_curso_current.subSubtema.recurso_link_video)+'**'+'/media/'+ str(det_subtema_curso_current.subSubtema.recurso_archivo)
         else:
             ruta_recur = ''
 
