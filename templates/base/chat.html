@@ -127,7 +127,7 @@
     
                             <ul class="m-b-0 conversation" id="content_conversacion">
 
-                                <li class="clearfix">
+                                <!-- <li class="clearfix">
                                     <div class="message my-message" style="max-width: 90%;">
                                         <h5>titulo</h5>
                                         <hr><span></span>
@@ -139,7 +139,7 @@
                                             hora
                                         </span>
                                     </div>
-                                </li>
+                                </li> -->
     
                             </ul>
                             
@@ -259,16 +259,20 @@
 
                                     switch (data[dat].recurso) {
                                         case 'Archivo':
-                                            archi = `<hr> <a href="`+data[dat].ruta_recurso+`"> <i class="fa fa-file ic-w mr-1"></i> Recurso de ayuda</a>`;
+                                            archi = `<hr> <a href="`+data[dat].ruta_recurso.split(';')[1]+`"> <i class="fa fa-file ic-w mr-1"></i> Recurso de ayuda</a>`;
+                                            archi2 = '';
                                             break;
                                         case 'Enlace':
-                                            archi = `<hr> <a target="_blank" href="`+data[dat].ruta_recurso+`"> <i class="fa fa-globe ic-w mr-1"></i> Recurso de ayuda</a>`;
+                                            archi = `<hr> <a target="_blank" href="`+data[dat].ruta_recurso.split(';')[0]+`"> <i class="fa fa-globe ic-w mr-1"></i> Recurso de ayuda</a>`;
+                                            archi2 = ''
                                             break;
                                         case 'Video':
-                                            archi = `<hr><span>`+data[dat].ruta_recurso+`</span>`;
+                                            archi = `<hr><span>`+data[dat].ruta_recurso.split(';')[0]+`</span>`;
+                                            archi2 = archi = `<hr> <a href="`+data[dat].ruta_recurso.split(';')[1]+`"> <i class="fa fa-file ic-w mr-1"></i> Recurso de ayuda</a>`;
                                             break;
                                         default:
                                             archi ="";
+                                            archi2 = '';
                                             break;
                                     };
 
@@ -278,7 +282,7 @@
                                         <div class="message my-message " style="max-width: 90%;">
                                             <h5>`+data[dat].title+`</h5>
                                             <span>`+data[dat].msj+`</span> 
-                                               `+archi+` <br>
+                                               `+archi+` <br>`+archi2+`<br>
                                                 <span class="message-time" style="color: rgb(158, 159, 159);">
                                                     `+data[dat].datetime+`
                                                 </span>
@@ -552,16 +556,20 @@
 
                         switch (chat[msj].fields.recurso) {
                             case 'Archivo':
-                                archi = `<hr> <a href="`+chat[msj].fields.recurso_dir+`"> <i class="fa fa-file ic-w mr-1"></i> Recurso de ayuda</a>`;
+                                archi = `<hr> <a href="`+chat[msj].fields.recurso_dir.split(';')[1]+`"> <i class="fa fa-file ic-w mr-1"></i> Recurso de ayuda</a>`;
+                                archi2 = '';
                                 break;
                             case 'Enlace':
-                                archi = `<hr> <a target="_blank" href="`+chat[msj].fields.recurso_dir+`"> <i class="fa fa-globe ic-w mr-1"></i> Recurso de ayuda</a>`;
+                                archi = `<hr> <a target="_blank" href="`+chat[msj].fields.recurso_dir.split(';')[0]+`"> <i class="fa fa-globe ic-w mr-1"></i> Recurso de ayuda</a>`;
+                                archi2 = '';
                                 break;
                             case 'Video':
-                                archi = `<hr><span>`+chat[msj].fields.recurso_dir+`</span>`;
+                                archi = `<hr><span>`+chat[msj].fields.recurso_dir.split(';')[0]+`</span>`;
+                                archi2 = `<hr> <a href="`+chat[msj].fields.recurso_dir.split(';')[1]+`"> <i class="fa fa-file ic-w mr-1"></i> Recurso de ayuda</a>`;
                                 break;
                             default:
                                 archi ="";
+                                archi2 = "";
                                 break;
                         };
 
@@ -572,7 +580,7 @@
                                 <div class="message my-message" style="max-width: 90%;">
                                     <h5>`+chat[msj].fields.title+`</h5>
                                     <span>`+chat[msj].fields.mensaje+`</span> 
-                                    `+archi+`<br>
+                                    `+archi+`<br>`+archi2+`<br>
                                     <span class="message-time" style="color: rgb(158, 159, 159);">
                                         `+chat[msj].fields.fecha+`
                                     </span>
