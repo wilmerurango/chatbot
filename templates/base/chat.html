@@ -267,8 +267,8 @@
                                             archi2 = ''
                                             break;
                                         case 'Video':
-                                            archi2 = `<hr><span>`+data[dat].ruta_recurso.split(';')[0]+`</span>`;
-                                            archi = `<hr> <a href="`+data[dat].ruta_recurso.split(';')[1]+`"> <i class="fa fa-file ic-w mr-1"></i> Recurso de ayuda</a>`;
+                                            archi2 = `<hr><span>`+data[dat].ruta_recurso.split('**')[0]+`</span>`;
+                                            archi = `<hr> <a href="`+data[dat].ruta_recurso.split('**')[1]+`"> <i class="fa fa-file ic-w mr-1"></i> Recurso de ayuda</a>`;
                                             break;
                                         default:
                                             archi ="";
@@ -548,7 +548,7 @@
 
         for(msj in chat){
             // console.log(chat[msj].fields.user);
-            console.log(chat[msj].fields.recurso_dir.split(';'));
+            console.log(chat[msj].fields.recurso_dir.split('**'));
             if(chat[msj].fields.user == id_user_bot){
 
                 switch(chat[msj].fields.tipo_mensje){
@@ -565,8 +565,8 @@
                                 archi2 = '';
                                 break;
                             case 'Video':
-                                archi2 = `<hr><span>`+chat[msj].fields.recurso_dir.split(';')[0]+`</span>`;
-                                archi = `<hr> <a href="`+chat[msj].fields.recurso_dir.split(';')[1]+`"> <i class="fa fa-file ic-w mr-1"></i> Recurso de ayuda</a>`;
+                                archi2 = `<hr><span>`+chat[msj].fields.recurso_dir.split('**')[0]+`</span>`;
+                                archi = `<hr> <a href="`+chat[msj].fields.recurso_dir.split('**')[1]+`"> <i class="fa fa-file ic-w mr-1"></i> Recurso de ayuda</a>`;
                                 break;
                             default:
                                 archi ="";
