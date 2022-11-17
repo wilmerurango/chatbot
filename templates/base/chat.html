@@ -256,7 +256,7 @@
                                     break;
 
                                 case "Texto":
-                                    console.log(data[dat].ruta_recurso.split(';'));
+                                    // console.log(data[dat].ruta_recurso.split(';'));
                                     switch (data[dat].recurso) {
                                         case 'Archivo':
                                             archi = `<hr> <a href="`+data[dat].ruta_recurso+`"> <i class="fa fa-file ic-w mr-1"></i> Recurso de ayuda</a>`;
@@ -548,7 +548,7 @@
 
         for(msj in chat){
             // console.log(chat[msj].fields.user);
-            console.log(chat[msj].fields.recurso_dir.split(';'));
+            // console.log(chat[msj].fields.recurso_dir.split(';'));
             if(chat[msj].fields.user == id_user_bot){
 
                 switch(chat[msj].fields.tipo_mensje){
