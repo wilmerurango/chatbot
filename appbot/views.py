@@ -79,7 +79,7 @@ def chat(request, id_):
         msj_welcome2.save()
     # fin --- enviar mensaje de inicioss
 
-    conversacion = Conversacion.objects.filter(inscripcion__id = inscripcion_curso.id)
+    # conversacion = Conversacion.objects.filter(inscripcion__id = inscripcion_curso.id)
     conversacion = serializers.serialize('json',conversacion)
     users = serializers.serialize('json',User.objects.all())
     print('usuarios :',User.objects.all()[0].id )
