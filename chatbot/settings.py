@@ -83,6 +83,7 @@ WSGI_APPLICATION = 'chatbot.wsgi.application'
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
+
 import dj_database_url
 from decouple import config
 

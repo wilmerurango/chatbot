@@ -53,7 +53,7 @@ def chat(request, id_):
     inscripcion_curso = Inscripcion.objects.get(curso__id = id_, user__username=request.user.username)
     # print("inscripcion: ",inscripcion_curso)
 
-    conversacion = Conversacion.objects.filter(inscripcion__id = inscripcion_curso.id)
+    conversacion = Conversacion.objects.filter(inscripcion__id = inscripcion_curso.id).order_by('id')
     cont_msj_conversacion = conversacion.count()
 
     # inicio --- enviar mensaje de inicio
