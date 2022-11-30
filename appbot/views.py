@@ -186,7 +186,7 @@ def msj_user(request):
     last_msj_bot = Conversacion.objects.filter(inscripcion__id = inscripcion_curso.id, user__username="Bot").last()
     
 
-    if last_msj_bot.mensaje == "¿ Quieres Iniciar ya ?" and msj.upper() in ['SI', 'YES','OK','LISTO','S','Y','SE','SEE','SEEE']:
+    if last_msj_bot.mensaje == "¿ Quieres Iniciar ya ?, por favor escribe: SI " and msj.upper() in ['SI', 'YES','OK','LISTO','S','Y','SE','SEE','SEEE']:
         
         
         list_tema = CurTemStem.objects.filter(curso__id = inscripcion_curso.curso.id).order_by('orden')
