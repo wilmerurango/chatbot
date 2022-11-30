@@ -71,7 +71,7 @@ def chat(request, id_):
         msj_welcome2 = Conversacion()
         msj_welcome2.user = User.objects.get(username = "Bot")
         msj_welcome2.curso = Curso.objects.get(id = id_)
-        msj_welcome2.mensaje = "¿ Quieres Iniciar ya ?"
+        msj_welcome2.mensaje = "¿ Quieres Iniciar ya ?, por favor escribe: SI "
         msj_welcome2.fecha = datetime.today()
         msj_welcome2.tipo_mensje = "Texto"
         msj_welcome2.inscripcion = inscripcion_curso
@@ -79,7 +79,6 @@ def chat(request, id_):
         msj_welcome2.save()
     # fin --- enviar mensaje de inicioss
 
-    # conversacion = Conversacion.objects.filter(inscripcion__id = inscripcion_curso.id)
     conversacion = serializers.serialize('json',conversacion)
     users = serializers.serialize('json',User.objects.all())
     print('usuarios :',User.objects.all()[0].id )
@@ -210,8 +209,17 @@ def msj_user(request):
         inscripcion_curso.estado = "En proceso"
         inscripcion_curso.save()
 
-        data = [{'msj':conversacion.mensaje, 'datetime':datetime.today().strftime(" %d de %B %Y a las %I:%M %p"), 'sgt_paso':"ConsulTema/"+str(inscripcion_curso.id)+"/", 'tipo_user':'Estudiante', 'tipo_msj':'Texto'},
-                {'msj':tem, 'datetime':datetime.today().strftime(" %d de %B %Y a las %I:%M %p"), 'sgt_paso':"ConsulTema/"+str(inscripcion_curso.id)+"/", 'tipo_user':'Bot', 'tipo_msj':'Lista', 'title':'Esta es la lista de los temas que veremos durante el curso'}
+        data = [{'msj':conversacion.mensaje, 
+                'datetime':datetime.today().strftime(" %d de %B %Y a las %I:%M %p"), 
+                'sgt_paso':"ConsulTema/"+str(inscripcion_curso.id)+"/", 
+                'tipo_user':'Estudiante', 
+                'tipo_msj':'Texto'},
+                {'msj':tem, 
+                'datetime':datetime.today().strftime(" %d de %B %Y a las %I:%M %p"), 
+                'sgt_paso':"ConsulTema/"+str(inscripcion_curso.id)+"/", 
+                'tipo_user':'Bot', 
+                'tipo_msj':'Lista', 
+                'title':'Esta es la lista de los temas que veremos durante el curso'}
                 ]
     else:
 
