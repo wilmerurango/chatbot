@@ -1216,6 +1216,73 @@ class Update_Ctsd(UpdateView): #crear usuario
 
 
 
+def charts(request):
+    estudiante = User.objects.filter(tipo_user="Estudiante").order_by('fecha_naci')
+    contm = 0
+    contf = 0
+    lista_estrat = [0, 0, 0, 0, 0, 0]
+    lista_anos = []
+    año_actual = datetime.today().year
+
+    for i in estudiante:
+        if i.genero == "Masculino":
+            contm += 1
+        else:
+            contf += 1
+
+        if i.estrato == "1":
+            lista_estrat[0] += 1
+        elif i.estrato == "2":
+            lista_estrat[1] += 1
+        elif i.estrato == "3":
+            lista_estrat[2] += 1
+        elif i.estrato == "4":
+            lista_estrat[3] += 1
+        elif i.estrato == "5":
+            lista_estrat[4] += 1
+        else:
+            lista_estrat[5] += 1
+
+        lista_estr = []
+        
+        for j in range(len(lista_estrat)):
+            if lista_estrat[j] != 0:
+                lista_estr.append({'name':j+1,'y':lista_estrat[j]})
+
+        if i.fecha_naci.year not in lista_anos:
+            lista_anos.append({'name':año_actual-i.fecha_naci.year, 'y':0})
+
+        a = i.fecha_naci.year
+        
+        print(a)
+
+    for j in lista_anos:
+        for n in estudiante:
+            if año_actual- n.fecha_naci.year == j['name']:
+                j['y'] += 1
+
+        
+    print(lista_anos)
+
+    
+
+    list_genero = [
+        {'name':'Masculino','y':contm},
+        {'name':'Femenino','y':contf}
+    ]
+
+
+
+    context={
+        'users' : User.objects.get(username = request.user.username),
+        'list_genero':list_genero,
+        'lista_estr':lista_estr,
+        'lista_anos':lista_anos
+    }
+    return render(request, 'vistas/charts/charts.html',context)
+
+
+
 
 # class Create_Prog_Tem(CreateView): #crear usuario
 #     model = Prog_Tem

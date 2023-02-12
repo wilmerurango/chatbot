@@ -24,6 +24,9 @@ class UserAdmin(UserAdmin):
                 'fecha_creacion',#este es por defecto
                 'grado_cursado',
                 'telefono',
+                'fecha_naci',
+                'genero',
+                'estrato',
             )}),
     )
 

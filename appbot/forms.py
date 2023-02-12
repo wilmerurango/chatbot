@@ -22,7 +22,10 @@ class UserForm(forms.ModelForm):
             'estado',#este es por defecto
             'fecha_creacion',#este es por defecto
             'grado_cursado',
-            'telefono'
+            'telefono',
+            'fecha_naci',
+            'genero',
+            'estrato'
         )
 
  
@@ -45,6 +48,11 @@ class UserForm(forms.ModelForm):
         self.fields['estado'].widget.attrs.update({ 
                 'type': 'hidden'
             })
+
+        # self.fields['fecha_naci'].widget.attrs.update({ 
+        #         'class': 'form-control border-right border-bottom border-left border-success datetime',
+        #         'autocomplete':'off'
+        #     })
 
 
 class CursoForm(forms.ModelForm):

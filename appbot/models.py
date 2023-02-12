@@ -44,6 +44,30 @@ class User(AbstractUser):
     estado = models.CharField('Estado', max_length=12, choices=estado_estudiante, default=activo, null=True, db_index=True)
     colegio =  models.CharField('Colegio', max_length=100, blank=False, null=True)
     grado_cursado = models.CharField('Grado Cursado', max_length=10, blank=False, null=True)
+    fecha_naci = models.DateField('Fecha de Nacimiento', blank=False, null=True)
+
+    m = "Masculino"
+    f = "Femenino"
+    list_gen = [(m,"Masculino"),(f,"Femenino")]
+    genero = models.CharField('Género', max_length=9, choices=list_gen, default=m, null=True, db_index=True)
+
+    uno = "1"
+    dos = "2"
+    tres = "3"
+    cuatro = "4"
+    cinco = "5"
+    seis = "6"
+
+    list_num =[
+        (uno , "1"),
+        (dos , "2"),
+        (tres , "3"),
+        (cuatro , "4"),
+        (cinco , "5"),
+        (seis , "6")
+    ]
+    estrato = models.CharField('Estrato', max_length=1, choices=list_num, default=uno, null=True)
+
 
     def __str__(self):
         return '%s' % (self.username)
