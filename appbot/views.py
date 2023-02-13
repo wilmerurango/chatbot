@@ -490,14 +490,14 @@ def ConsulSubTema(request, id_):
 
 
                 act_pregunta_current = preg_activ_curso[count_preg_activ_prog]
-                act_preg_opcion = Act_Pregunta_Opt.objects.filter(act_Pregunta__id = act_pregunta_current.id).order_by('orden')
+                act_preg_opcion = Act_Pregunta_Opt.objects.filter(act_Pregunta__id = act_pregunta_current.id)
 
                 if count_preg_activ_prog != 0:
                     chat_actual = Conversacion.objects.filter(inscripcion__id = inscrip_cion.id).exclude(user__tipo_user = 'Bot')
                     print('chat actual',chat_actual.last().mensaje)
                 
                     act_pregunta_back = preg_activ_curso[count_preg_activ_prog-1]
-                    act_preg_opcion_back = Act_Pregunta_Opt.objects.filter(act_Pregunta__id = act_pregunta_back.id).order_by('orden')
+                    act_preg_opcion_back = Act_Pregunta_Opt.objects.filter(act_Pregunta__id = act_pregunta_back.id)
                     
                     act_preg_opcion_user = act_preg_opcion_back.get(id = int(chat_actual.last().mensaje))
                     print('opcion correcta',act_preg_opcion_user)
@@ -507,7 +507,7 @@ def ConsulSubTema(request, id_):
                     prog_preg_.save()
                 else:
                     # activi = Act_Pregunta.objects.filter(actividad__id = progreso_acti_last.last().actividad.id)
-                    opcionpregunta = Act_Pregunta_Opt.objects.filter(act_Pregunta__id = act_pregunta_current.id).order_by('orden')
+                    opcionpregunta = Act_Pregunta_Opt.objects.filter(act_Pregunta__id = act_pregunta_current.id)
                     act_preg_opcion_user = opcionpregunta.filter(opt_correcta = 'Falsa').first()
 
 
@@ -542,7 +542,7 @@ def ConsulSubTema(request, id_):
                 progreso_acti_last.last().nota
                 progreso_acti_last.last().porcentaje
 
-                opcion_respuesta = [str(i.descripcion)+";"+ str(i.orden) for i in act_preg_opcion]
+                opcion_respuesta = [str(i.descripcion)+";"+ str(i.id) for i in act_preg_opcion]
 
                 msj_bot = Conversacion()
                 msj_bot.user = User.objects.get(username = 'Bot')
