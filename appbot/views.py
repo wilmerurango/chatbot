@@ -542,7 +542,7 @@ def ConsulSubTema(request, id_):
                 progreso_acti_last.last().nota
                 progreso_acti_last.last().porcentaje
 
-                opcion_respuesta = [str(i.descripcion)+";"+ str(i.id) for i in act_preg_opcion]
+                opcion_respuesta = [str(i.descripcion)+";"+ str(i.orden) for i in act_preg_opcion]
 
                 msj_bot = Conversacion()
                 msj_bot.user = User.objects.get(username = 'Bot')
