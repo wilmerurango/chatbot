@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-9)bcc#vu@@i83(iqihoxzid9g0%7nv2c#@)%ig^1)xixty7+#c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']#'107.0.0.0','https://tibochatbot.herokuapp.com/','tibochatbot.herokuapp.com/']
 
