@@ -49,10 +49,11 @@ class UserForm(forms.ModelForm):
                 'type': 'hidden'
             })
 
-        # self.fields['fecha_naci'].widget.attrs.update({ 
-        #         'class': 'form-control border-right border-bottom border-left border-success datetime',
-        #         'autocomplete':'off'
-        #     })
+        self.fields['fecha_naci'].widget.attrs.update({ 
+                # 'class': 'form-control border-right border-bottom border-left border-success datetime',
+                # 'autocomplete':'off'
+                'placeholder': 'dd/mm/aaaa'
+            })
 
 
 class CursoForm(forms.ModelForm):
