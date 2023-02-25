@@ -73,6 +73,19 @@ class User(AbstractUser):
         return '%s' % (self.username)
 
 
+class UserActivityLog(models.Model):
+    user = models.ForeignKey(User, on_delete = models.PROTECT)
+    login_date = models.DateTimeField(null = True)
+    logout_date = models.DateTimeField(null = True)
+    created = models.DateTimeField(auto_now_add = True, editable = False)
+
+    # class Meta:
+    #     ordering = ['user', 'created']
+    
+    # def __str__(self):
+    #     return self.user
+
+
 
 class Curso(models.Model):
     abierto = "Abierto"

@@ -49,4 +49,5 @@ admin.site.register(Prog_Stem)
 admin.site.register(Prog_Sstem)
 admin.site.register(Cts)
 admin.site.register(Ctsd)
+admin.site.register(UserActivityLog)
 
