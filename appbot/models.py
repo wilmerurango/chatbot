@@ -32,7 +32,7 @@ class User(AbstractUser):
     tipo_user = models.CharField('Tipo Usuario', max_length=13, choices=opcion_, default=estud, null=True)
     direccion = models.CharField('Dirección', max_length=100, blank=False, null=True)
     telefono = models.CharField('Telefono', max_length=15, blank=False, null=True)
-    fecha_creacion = models.DateTimeField(verbose_name='Fecha Creación',blank=False, null=True, default=datetime.today())
+    fecha_creacion = models.DateTimeField(verbose_name='Fecha Creación',blank=False, null=True, default=datetime.now())
     
     activo = 'Activo'
     suspendido = 'Suspendido'
@@ -169,7 +169,7 @@ class SubSubtema(models.Model):
 
     recurso = models.CharField('Recurso', max_length=7, choices=opcion_recurso,  null=True, blank = True)
     recurso_link_video = models.TextField('Enlace',null=True, blank = True)
-    recurso_archivo = models.FileField('Cargar archivo', upload_to = "SubSubtema/", null=True, blank = True)
+    recurso_archivo = models.FileField('Cargar archivo', upload_to = "SubSubtema", null=True, blank = True)
 
 
     def __str__(self):
