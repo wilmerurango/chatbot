@@ -11,8 +11,10 @@ from django.core import serializers
 from django.dispatch import receiver
 from django.contrib.auth import user_logged_in, user_logged_out
 from django.utils import timezone
+from django.http import HttpResponse
 
-
+from openpyxl import Workbook
+from openpyxl.styles import Alignment, Border, Font, PatternFill, Side
 from datetime import datetime
 
 from .forms import *
@@ -30,6 +32,70 @@ def register_user_logout(sender, request, user, **kwargs):
     UserActivityLog.objects.filter(id = request.session['user_activity_log_id']).update(
         logout_date = timezone.now()
     )
+
+
+def reporte_(request):
+
+    wb = Workbook()
+    ws = wb.active
+
+    inscrip_tot = Inscripcion.objects.all()
+    prog_actividad = Prog_Acti.objects.all()
+    prog_pregunta = Prog_Preg.objects.all()
+
+    
+   
+    ws['A' + '1'] = 'usuario'
+    ws['B'+ '1'] = 'tipo_usuario'
+    ws['C'+ '1'] = 'nombre_de_tema'
+    ws['D' + '1'] = 'pregunta'
+    ws['E'+ '1'] = 'respuesta_correcta'
+    ws['F'+ '1'] = 'respuesta_usuario'
+    ws['G'+ '1'] = 'estado_respuesta'
+
+    contador  = 2
+
+    for inscrip in inscrip_tot:
+        print('estudiante: ',inscrip.user.first_name)
+
+        temaa = prog_actividad.filter(inscripcion = inscrip.id)
+        
+        if temaa.count() != 0:
+            for tema in temaa:
+                print('nombre de tema: ', tema.actividad.nombre)
+
+                pergun = prog_pregunta.filter(prog_Acti = tema.id)
+                if pergun.count() != 0:
+                    for resp in pergun:
+                        ee = Act_Pregunta.objects.get(id = resp.act_Pregunta_Opt.act_Pregunta.id)
+
+                        resp_corr = Act_Pregunta_Opt.objects.filter(act_Pregunta = ee.id).get(opt_correcta = 'Correcta')
+
+                        
+                        column = str(contador) 
+                        ws['A' + column] = inscrip.user.first_name + ' ' +inscrip.user.last_name
+                        ws['B'+ column] = inscrip.user.tipo_user
+                        ws['C'+ column] = tema.actividad.nombre
+                        ws['D' + column] = ee.descripcion
+                        ws['E'+ column] = resp_corr.descripcion
+                        ws['F'+ column] = resp.act_Pregunta_Opt.descripcion
+                        ws['G'+ column] = resp.act_Pregunta_Opt.opt_correcta
+
+                        contador += 1
+
+                        print('p-rc-ru-re: ', ee.descripcion, '--',resp_corr.descripcion, '--', resp.act_Pregunta_Opt.descripcion, '--', resp.act_Pregunta_Opt.opt_correcta)
+        else:
+            print('sin registro')
+
+
+    nombre_archivo = "resultado_examenes.xlsx"
+    response = HttpResponse(content_type="application/ms-excel")
+    contenido = "attachment; filename = {0}".format(nombre_archivo)
+    response["Content-Disposition"] = contenido
+    wb.save(response)
+
+    return response
+
 
 
 
@@ -64,9 +130,76 @@ def calculo_progreso(inscripcion_curso):
 
     return progreso_avance
 
+def reporte_(request):
+
+    wb = Workbook()
+    ws = wb.active
+
+    inscrip_tot = Inscripcion.objects.all()
+    prog_actividad = Prog_Acti.objects.all()
+    prog_pregunta = Prog_Preg.objects.all()
+
+    
+   
+    ws['A' + '1'] = 'usuario'
+    ws['B'+ '1'] = 'tipo_usuario'
+    ws['C'+ '1'] = 'nombre_de_tema'
+    ws['D' + '1'] = 'pregunta'
+    ws['E'+ '1'] = 'respuesta_correcta'
+    ws['F'+ '1'] = 'respuesta_usuario'
+    ws['G'+ '1'] = 'estado_respuesta'
+
+    contador  = 2
+
+    for inscrip in inscrip_tot:
+        print('estudiante: ',inscrip.user.first_name)
+
+        temaa = prog_actividad.filter(inscripcion = inscrip.id)
+        
+        if temaa.count() != 0:
+            for tema in temaa:
+                print('nombre de tema: ', tema.actividad.nombre)
+
+                pergun = prog_pregunta.filter(prog_Acti = tema.id)
+                if pergun.count() != 0:
+                    for resp in pergun:
+                        ee = Act_Pregunta.objects.get(id = resp.act_Pregunta_Opt.act_Pregunta.id)
+
+                        resp_corr = Act_Pregunta_Opt.objects.filter(act_Pregunta = ee.id).get(opt_correcta = 'Correcta')
+
+                        
+                        column = str(contador) 
+                        ws['A' + column] = inscrip.user.first_name + ' ' +inscrip.user.last_name
+                        ws['B'+ column] = inscrip.user.tipo_user
+                        ws['C'+ column] = tema.actividad.nombre
+                        ws['D' + column] = ee.descripcion
+                        ws['E'+ column] = resp_corr.descripcion
+                        ws['F'+ column] = resp.act_Pregunta_Opt.descripcion
+                        ws['G'+ column] = resp.act_Pregunta_Opt.opt_correcta
+
+                        contador += 1
+
+                        print('p-rc-ru-re: ', ee.descripcion, '--',resp_corr.descripcion, '--', resp.act_Pregunta_Opt.descripcion, '--', resp.act_Pregunta_Opt.opt_correcta)
+        else:
+            print('sin registro')
+
+
+    nombre_archivo = "resultado_examenes.xlsx"
+    response = HttpResponse(content_type="application/ms-excel")
+    contenido = "attachment; filename = {0}".format(nombre_archivo)
+    response["Content-Disposition"] = contenido
+    wb.save(response)
+
+    return response
+
+
 
 
 def chat(request, id_):
+
+    
+
+
     # id_: esta es el id del curso inscrito
 
     inscripcion_curso = Inscripcion.objects.get(curso__id = id_, user__username=request.user.username)

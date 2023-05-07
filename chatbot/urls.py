@@ -106,6 +106,8 @@ urlpatterns = [
     path('list_cts/', list_cts, name="list_cts"),
     path('list_ctsd/', list_ctsd, name="list_ctsd"),
 
+    path('reporte_/', reporte_ , name="reporte_"),
+
     path('accounts/',include('django.contrib.auth.urls')),
 ] 
 
