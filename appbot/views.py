@@ -148,8 +148,8 @@ def reporte_(request):
     ws['E'+ '1'] = 'respuesta_correcta'
     ws['F'+ '1'] = 'respuesta_usuario'
     ws['G'+ '1'] = 'estado_respuesta'
-    ws['G'+ '1'] = 'cod_usuario'
-    ws['G'+ '1'] = 'cod_inscripcion'
+    ws['H'+ '1'] = 'cod_usuario'
+    ws['I'+ '1'] = 'cod_inscripcion'
 
     contador  = 2
 
@@ -178,8 +178,8 @@ def reporte_(request):
                         ws['E'+ column] = resp_corr.descripcion
                         ws['F'+ column] = resp.act_Pregunta_Opt.descripcion
                         ws['G'+ column] = resp.act_Pregunta_Opt.opt_correcta
-                        ws['F'+ column] = inscrip.user.id
-                        ws['G'+ column] = inscrip.id
+                        ws['H'+ column] = inscrip.user.id
+                        ws['I'+ column] = inscrip.id
 
                         contador += 1
 
